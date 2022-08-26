@@ -1,0 +1,51 @@
+{
+  "name": "@softaware/native-ui",
+  "private": true,
+  "version": "0.1.0",
+  "description": "React Native components library focused on usability and developer experience",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint"
+  },
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "ui-kit",
+    "library",
+    "frontend",
+    "design",
+    "native"
+  ],
+  "author": "Ivan Dimitrov <i.dimitrov@softaware.io>",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-native": "^0.68.2"
+  },
+  "dependencies": {
+    "@react-native-picker/picker": "^2.4.0",
+    "react-native-modal": "^13.0.1",
+    "react-native-progress": "^5.0.0",
+    "react-native-reanimated": "^2.8.0",
+    "react-native-responsive-screen": "^1.4.2"
+  },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^3.1.0",
+    "@types/react": "^17.0.21",
+    "@types/react-native": "^0.68.2",
+    "eslint": "^8.22.0",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "standard-version": "^9.3.2",
+    "typescript": "^4.7.4"
+  }
+}
