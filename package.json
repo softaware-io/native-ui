@@ -10,9 +10,10 @@
     "build": "npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
+    "lint": "eslint \"./src/**/*.{js,ts,jsx,tsx}\"",
+    "prettier": "prettier --write \"./src/**/*.{js,ts,jsx,tsx}\"",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run lint"
+    "prepublishOnly": "npm run prettier && npm run lint"
   },
   "keywords": [
     "react",
@@ -26,6 +27,11 @@
   ],
   "author": "Ivan Dimitrov <i.dimitrov@softaware.io>",
   "license": "ISC",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
