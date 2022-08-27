@@ -3,6 +3,7 @@ import { Bar } from "react-native-progress";
 import { useTheme } from "../utils/useTheme";
 import { ProgressBarProps } from "./types";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { createStyles } from "../utils/createStyles";
 
 export const ProgressBar: FC<ProgressBarProps> = ({
   style,
@@ -22,6 +23,8 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 }) => {
   const { colors, components } = useTheme();
   const theme = components.ProgressBar;
+
+  const defaultStyles = useStyles();
 
   return (
     <Bar
@@ -70,7 +73,11 @@ export const ProgressBar: FC<ProgressBarProps> = ({
       }
       animationConfig={animationConfig || theme?.animationConfig}
       animationType={animationType || theme?.animationType}
-      style={[theme?.style, style, isDisabled && { opacity: 0.5 }]}
+      style={[theme?.style, style, isDisabled && defaultStyles.disabledBar]}
     />
   );
 };
+
+const useStyles = createStyles(() => ({
+  disabledBar: { opacity: 0.5 },
+}));

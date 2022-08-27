@@ -14,6 +14,7 @@ export * from "./ProgressBar/types";
 export * from "./context";
 export * from "./utils/useTheme";
 export * from "./utils/extendComponents";
+export * from "./utils/createStyles";
 export {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,

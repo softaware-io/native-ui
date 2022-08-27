@@ -4,6 +4,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
+import { createStyles } from "../utils/createStyles";
 import { useTheme } from "../utils/useTheme";
 import { ButtonProps } from "./types";
 
@@ -23,30 +24,25 @@ export const Button: FC<ButtonProps> = ({
   __rightIcon,
   ...props
 }) => {
-  const { colors, components, fontSizes } = useTheme();
+  const { components } = useTheme();
   const theme = components.Button;
+
+  const defaultStyles = useStyles();
 
   return (
     <Pressable
       {...props}
       style={({ pressed: isPressed }) => [
-        {
-          paddingHorizontal: wp("6%"),
-          paddingVertical: hp("2%"),
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: colors.primary[500],
-        },
+        defaultStyles.button,
         theme?.style,
         style,
-        isPressed && { backgroundColor: colors.primary[600] },
+        isPressed && defaultStyles.pressedButton,
         isPressed && theme?._pressed?.style,
         isPressed && _pressed?.style,
-        isLoading && { opacity: 0.7 },
+        isLoading && defaultStyles.loadingButton,
         isLoading && theme?._loading?.style,
         isLoading && _loading?.style,
-        isDisabled && { opacity: 0.5 },
+        isDisabled && defaultStyles.disabledButton,
         isDisabled && theme?._disabled?.style,
         isDisabled && _disabled?.style,
       ]}
@@ -59,7 +55,7 @@ export const Button: FC<ButtonProps> = ({
               {...theme?.__spinner}
               {...__spinner}
               style={[
-                { marginRight: wp("3%") },
+                defaultStyles.spinner,
                 theme?.__spinner?.style,
                 __spinner?.style,
               ]}
@@ -76,7 +72,7 @@ export const Button: FC<ButtonProps> = ({
               {...(isDisabled && theme?._disabled?.__leftIcon)}
               {...(isDisabled && _disabled?.__leftIcon)}
               style={[
-                { marginRight: wp("2%") },
+                defaultStyles.leftIcon,
                 theme?.__leftIcon?.style,
                 __leftIcon?.style,
                 isPressed && theme?._pressed?.__leftIcon?.style,
@@ -100,10 +96,7 @@ export const Button: FC<ButtonProps> = ({
             {...(isDisabled && theme?._disabled?.__title)}
             {...(isDisabled && _disabled?.__title)}
             style={[
-              {
-                fontWeight: "500",
-                fontSize: fontSizes.normal,
-              },
+              defaultStyles.title,
               theme?.__title?.style,
               __title?.style,
               isPressed && theme?._pressed?.__title?.style,
@@ -127,7 +120,7 @@ export const Button: FC<ButtonProps> = ({
               {...(isDisabled && theme?._disabled?.__rightIcon)}
               {...(isDisabled && _disabled?.__rightIcon)}
               style={[
-                { marginLeft: wp("2%") },
+                defaultStyles.rightIcon,
                 theme?.__rightIcon?.style,
                 __rightIcon?.style,
                 isPressed && theme?._pressed?.__rightIcon?.style,
@@ -146,3 +139,24 @@ export const Button: FC<ButtonProps> = ({
     </Pressable>
   );
 };
+
+const useStyles = createStyles(({ colors, fontSizes }) => ({
+  button: {
+    paddingHorizontal: wp("6%"),
+    paddingVertical: hp("2%"),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.primary[500],
+  },
+  pressedButton: { backgroundColor: colors.primary[600] },
+  loadingButton: { opacity: 0.7 },
+  disabledButton: { opacity: 0.5 },
+  spinner: { marginRight: wp("3%") },
+  leftIcon: { marginRight: wp("2%") },
+  rightIcon: { marginLeft: wp("2%") },
+  title: {
+    fontWeight: "500",
+    fontSize: fontSizes.normal,
+  },
+}));

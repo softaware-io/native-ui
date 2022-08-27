@@ -7,6 +7,7 @@ import { SelectProps } from "./types";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Button } from "../Button/Button";
 import { useTheme } from "../utils/useTheme";
+import { createStyles } from "../utils/createStyles";
 
 export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
   children,
@@ -23,8 +24,10 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
   __modal,
   ...props
 }) => {
-  const { colors, components } = useTheme();
+  const { components } = useTheme();
   const theme = components.Select;
+
+  const defaultStyles = useStyles();
 
   const [visible, setVisible] = useState(false);
   const pickerRef = useRef<Picker<string>>(null);
@@ -59,41 +62,22 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
           onBackdropPress={() => setVisible(false)}
           coverScreen
           backdropOpacity={0.2}
-          style={[
-            {
-              padding: 0,
-              width: "100%",
-              position: "absolute",
-              bottom: 0,
-            },
-            theme?.__modal?.style,
-            __modal?.style,
-          ]}
+          style={[defaultStyles.modal, theme?.__modal?.style, __modal?.style]}
         >
           <Modal.Header>
             <Button
               title="Done"
               onPress={() => setVisible(false)}
-              style={{
-                marginLeft: "auto",
-                paddingTop: hp("2%"),
-                paddingBottom: hp("1.5%"),
-                backgroundColor: "transparent",
-              }}
+              style={defaultStyles.doneButton}
               _pressed={{
-                style: {
-                  backgroundColor: "transparent",
-                },
+                style: defaultStyles.pressedDoneButton,
               }}
               __title={{
-                style: {
-                  color: colors.primary[700],
-                  fontWeight: "700",
-                },
+                style: defaultStyles.doneButtonTitle,
               }}
             />
           </Modal.Header>
-          <Modal.Content style={{ marginTop: 0 }}>
+          <Modal.Content style={defaultStyles.modalContent}>
             <Picker
               {...theme?.__picker}
               {...__picker}
@@ -103,7 +87,7 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
               selectedValue={selectedValue}
               onValueChange={(itemValue) => onValueChange(itemValue)}
               enabled={!isDisabled}
-              style={[{ width: "100%" }]}
+              style={defaultStyles.iosPicker}
             >
               {children}
             </Picker>
@@ -144,10 +128,7 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
         selectedValue={selectedValue}
         onValueChange={(itemValue) => onValueChange(itemValue)}
         enabled={!isDisabled}
-        style={{
-          display: "none",
-          opacity: 0,
-        }}
+        style={defaultStyles.picker}
       >
         {children}
       </Picker>
@@ -156,3 +137,31 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
 };
 
 Select.Item = Picker.Item;
+
+const useStyles = createStyles(({ colors }) => ({
+  modal: {
+    padding: 0,
+    width: "100%",
+    position: "absolute",
+    bottom: 0,
+  },
+  modalContent: { marginTop: 0 },
+  iosPicker: { width: "100%" },
+  picker: {
+    display: "none",
+    opacity: 0,
+  },
+  doneButton: {
+    marginLeft: "auto",
+    paddingTop: hp("2%"),
+    paddingBottom: hp("1.5%"),
+    backgroundColor: "transparent",
+  },
+  pressedDoneButton: {
+    backgroundColor: "transparent",
+  },
+  doneButtonTitle: {
+    color: colors.primary[700],
+    fontWeight: "700",
+  },
+}));

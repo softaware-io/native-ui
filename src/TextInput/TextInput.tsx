@@ -4,6 +4,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
+import { createStyles } from "../utils/createStyles";
 import { useTheme } from "../utils/useTheme";
 import { TextInputProps } from "./types";
 
@@ -19,8 +20,10 @@ export const TextInput: FC<TextInputProps> = ({
   placeholderTextColor,
   ...props
 }) => {
-  const { colors, components, fontSizes } = useTheme();
+  const { colors, components } = useTheme();
   const theme = components.TextInput;
+
+  const defaultStyles = useStyles();
 
   const [isFocused, setIsFocused] = useState(false);
 
@@ -50,22 +53,13 @@ export const TextInput: FC<TextInputProps> = ({
         .filter(Boolean)
         .pop()}
       style={[
-        {
-          fontSize: fontSizes.normal,
-          paddingVertical: hp("1%"),
-          paddingHorizontal: wp("3%"),
-          borderWidth: 1,
-          borderColor: colors.gray[300],
-          color: colors.black,
-        },
+        defaultStyles.textInput,
         theme?.style,
         style,
-        isFocused && {
-          borderColor: colors.primary[300],
-        },
+        isFocused && defaultStyles.focusedTextInput,
         isFocused && theme?._focused?.style,
         isFocused && _focused?.style,
-        isDisabled && { opacity: 0.5 },
+        isDisabled && defaultStyles.disabledTextInput,
         isDisabled && theme?._disabled?.style,
         isDisabled && _disabled?.style,
         isReadOnly && theme?._readOnly?.style,
@@ -74,3 +68,18 @@ export const TextInput: FC<TextInputProps> = ({
     />
   );
 };
+
+const useStyles = createStyles(({ colors, fontSizes }) => ({
+  textInput: {
+    fontSize: fontSizes.normal,
+    paddingVertical: hp("1%"),
+    paddingHorizontal: wp("3%"),
+    borderWidth: 1,
+    borderColor: colors.gray[300],
+    color: colors.black,
+  },
+  disabledTextInput: { opacity: 0.5 },
+  focusedTextInput: {
+    borderColor: colors.primary[300],
+  },
+}));
