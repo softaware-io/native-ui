@@ -1,6 +1,5 @@
 {
   "name": "@softaware/native-ui",
-  "private": true,
   "version": "0.1.0",
   "description": "React Native components library focused on usability and developer experience",
   "main": "./dist/cjs/index.js",

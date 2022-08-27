@@ -1,3 +1,4 @@
+import { Button } from "@softaware/native-ui";
 import * as React from "react";
 
 import { StyleSheet, Text, View } from "react-native";
@@ -8,6 +9,7 @@ const NotFoundScreen = ({}: RootStackScreenProps<"NotFound">) => {
   return (
     <View style={styles.container}>
       <Text>Screen not found</Text>
+      <Button title="Test" />
     </View>
   );
 };
