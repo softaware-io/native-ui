@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://gitlab.com/softaware-io/packages/native-ui/compare/v0.2.1...v0.2.2) (2022-08-27)
+
+
+### Features
+
+* add license ([bc62ed7](https://gitlab.com/softaware-io/packages/native-ui/commit/bc62ed779511e5cc877b3abf6bd39f7e4c782d5a))
+
 ### [0.2.1](https://gitlab.com/softaware-io/packages/native-ui/compare/v0.2.0...v0.2.1) (2022-08-27)
 
 
