@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://gitlab.com/softaware-io/packages/native-ui/compare/v0.2.0...v0.2.1) (2022-08-27)
+
+
+### Bug Fixes
+
+* createStyles type ([54e0328](https://gitlab.com/softaware-io/packages/native-ui/commit/54e032889770ff99bf4b2d7127e4f9a6bbbc339c))
+
 ## 0.2.0 (2022-08-27)
 
 
