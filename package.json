@@ -30,7 +30,7 @@
     "url": "git+https://github.com/softaware-io/native-ui.git"
   },
   "author": "Ivan Dimitrov <i.dimitrov@softaware.io>",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "files": [
     "dist",
     "LICENSE",
