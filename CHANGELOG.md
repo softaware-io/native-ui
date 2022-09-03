@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/softaware-io/native-ui/compare/v0.2.3...v0.3.0) (2022-09-03)
+
+
+### Features
+
+* add Checkbox component, fix Button righticon, change icons implementation in components ([f003b6e](https://github.com/softaware-io/native-ui/commit/f003b6eb79921ec07d9293bab258e7aac11190bd))
+
 ### [0.2.3](https://github.com/softaware-io/native-ui/compare/v0.2.2...v0.2.3) (2022-08-28)
 
 ### [0.2.2](https://gitlab.com/softaware-io/packages/native-ui/compare/v0.2.1...v0.2.2) (2022-08-27)
