@@ -11,12 +11,13 @@ export const Checkbox: FC<CheckboxProps> = ({
   label,
   isDisabled = false,
   onValueChange,
-  value = false,
+  isChecked = false,
   _disabled,
   _pressed,
   _checked,
   __label,
   __icon,
+  __thumb,
   ...props
 }) => {
   const { components } = useTheme();
@@ -27,7 +28,17 @@ export const Checkbox: FC<CheckboxProps> = ({
   return (
     <Pressable
       {...props}
-      style={() => [defaultStyles.container]}
+      style={({ pressed: isPressed }) => [
+        defaultStyles.container,
+        theme?.style,
+        style,
+        isChecked && theme?._checked?.style,
+        isChecked && _checked?.style,
+        isPressed && theme?._pressed?.style,
+        isPressed && _pressed?.style,
+        isDisabled && theme?._disabled?.style,
+        isDisabled && _disabled?.style,
+      ]}
       onPress={onValueChange}
       disabled={isDisabled}
     >
@@ -36,20 +47,20 @@ export const Checkbox: FC<CheckboxProps> = ({
           <View
             style={[
               defaultStyles.checkbox,
-              theme?.style,
-              style,
-              value && defaultStyles.checkedCheckbox,
-              value && theme?._checked?.style,
-              value && _checked?.style,
+              theme?.__thumb?.style,
+              __thumb?.style,
+              isChecked && defaultStyles.checkedCheckbox,
+              isChecked && theme?._checked?.__thumb?.style,
+              isChecked && _checked?.__thumb?.style,
               isPressed && defaultStyles.pressedCheckbox,
-              isPressed && theme?._pressed?.style,
-              isPressed && _pressed?.style,
+              isPressed && theme?._pressed?.__thumb?.style,
+              isPressed && _pressed?.__thumb?.style,
               isDisabled && defaultStyles.disabledCheckbox,
-              isDisabled && theme?._disabled?.style,
-              isDisabled && _disabled?.style,
+              isDisabled && theme?._disabled?.__thumb?.style,
+              isDisabled && _disabled?.__thumb?.style,
             ]}
           >
-            {value &&
+            {isChecked &&
               createElement(__icon?.type || Octicons, {
                 name: "check",
                 allowFontScaling: false,
@@ -74,8 +85,8 @@ export const Checkbox: FC<CheckboxProps> = ({
             <Text
               {...theme?.__label}
               {...__label}
-              {...(value && theme?._checked?.__label)}
-              {...(value && _checked?.__label)}
+              {...(isChecked && theme?._checked?.__label)}
+              {...(isChecked && _checked?.__label)}
               {...(isPressed && theme?._pressed?.__label)}
               {...(isPressed && _pressed?.__label)}
               {...(isDisabled && theme?._disabled?.__label)}
@@ -84,8 +95,8 @@ export const Checkbox: FC<CheckboxProps> = ({
                 defaultStyles.label,
                 theme?.__label?.style,
                 __label?.style,
-                value && theme?._checked?.__label?.style,
-                value && _checked?.__label?.style,
+                isChecked && theme?._checked?.__label?.style,
+                isChecked && _checked?.__label?.style,
                 isPressed && theme?._pressed?.__label?.style,
                 isPressed && _pressed?.__label?.style,
                 isDisabled && defaultStyles.disabledLabel,

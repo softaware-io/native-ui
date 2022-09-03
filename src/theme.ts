@@ -10,6 +10,7 @@ import { ModalProps } from "react-native-modal";
 import { EasingFunctionFactory } from "react-native-reanimated";
 import { ButtonIconProps, ButtonTitleProps } from "./Button/types";
 import { CheckboxIconProps, CheckboxLabelProps } from "./Checkbox/types";
+import { RadioLabelProps } from "./Radio/types";
 import { SelectPickerProps, SelectTextInputProps } from "./Select/types";
 
 type ColorShades = {
@@ -157,19 +158,49 @@ export type ComponentOverrides = {
     style?: ViewProps["style"];
     __label?: CheckboxLabelProps;
     __icon?: CheckboxIconProps;
+    __thumb?: Pick<ViewProps, "style">;
     _disabled?: {
       style?: ViewProps["style"];
       __label?: CheckboxLabelProps;
       __icon?: CheckboxIconProps;
+      __thumb?: Pick<ViewProps, "style">;
     };
     _pressed?: {
       style?: ViewProps["style"];
       __label?: CheckboxLabelProps;
       __icon?: CheckboxIconProps;
+      __thumb?: Pick<ViewProps, "style">;
     };
     _checked?: {
       style?: ViewProps["style"];
       __label?: CheckboxLabelProps;
+      __thumb?: Pick<ViewProps, "style">;
+    };
+  };
+  Radio?: {
+    style?: ViewProps["style"];
+    Option?: {
+      style?: ViewProps["style"];
+      __label?: RadioLabelProps;
+      __icon?: CheckboxIconProps;
+      __thumb?: Pick<ViewProps, "style">;
+      _disabled?: {
+        style?: ViewProps["style"];
+        __label?: RadioLabelProps;
+        __icon?: CheckboxIconProps;
+        __thumb?: Pick<ViewProps, "style">;
+      };
+      _pressed?: {
+        style?: ViewProps["style"];
+        __label?: RadioLabelProps;
+        __icon?: CheckboxIconProps;
+        __thumb?: Pick<ViewProps, "style">;
+      };
+      _checked?: {
+        style?: ViewProps["style"];
+        __label?: RadioLabelProps;
+        __thumb?: Pick<ViewProps, "style">;
+      };
     };
   };
 };

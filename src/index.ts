@@ -13,10 +13,13 @@ export * from "./ProgressBar/ProgressBar";
 export * from "./ProgressBar/types";
 export * from "./Checkbox/Checkbox";
 export * from "./Checkbox/types";
+export * from "./Radio/Radio";
+export * from "./Radio/types";
 export * from "./context";
 export * from "./utils/useTheme";
 export * from "./utils/extendComponents";
 export * from "./utils/createStyles";
+export * from "./utils/maxBorderRadius";
 export {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,

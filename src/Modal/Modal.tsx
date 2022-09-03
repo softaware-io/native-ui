@@ -37,7 +37,7 @@ const Header: FC<HeaderProps> = ({ style, children, ...props }) => {
   const defaultStyles = useStyles();
 
   return (
-    <View style={[defaultStyles.modalHeader, theme?.style, style]} {...props}>
+    <View {...props} style={[defaultStyles.modalHeader, theme?.style, style]}>
       {children}
     </View>
   );
@@ -50,7 +50,7 @@ const Content: FC<ContentProps> = ({ style, children, ...props }) => {
   const defaultStyles = useStyles();
 
   return (
-    <View style={[defaultStyles.modalContent, theme?.style, style]} {...props}>
+    <View {...props} style={[defaultStyles.modalContent, theme?.style, style]}>
       {children}
     </View>
   );
@@ -63,7 +63,7 @@ const Actions: FC<ActionsProps> = ({ style, children, ...props }) => {
   const defaultStyles = useStyles();
 
   return (
-    <View style={[defaultStyles.modalActions, theme?.style, style]} {...props}>
+    <View {...props} style={[defaultStyles.modalActions, theme?.style, style]}>
       {children}
     </View>
   );
