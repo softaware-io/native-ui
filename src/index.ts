@@ -11,6 +11,8 @@ export * from "./Skeleton/Skeleton";
 export * from "./Skeleton/types";
 export * from "./ProgressBar/ProgressBar";
 export * from "./ProgressBar/types";
+export * from "./Checkbox/Checkbox";
+export * from "./Checkbox/types";
 export * from "./context";
 export * from "./utils/useTheme";
 export * from "./utils/extendComponents";

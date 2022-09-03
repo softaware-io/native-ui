@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { ActivityIndicator, Pressable, Text, View } from "react-native";
+import { createElement, FC } from "react";
+import { ActivityIndicator, Pressable, Text } from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -13,8 +13,6 @@ export const Button: FC<ButtonProps> = ({
   title,
   isDisabled = false,
   isLoading = false,
-  leftIcon,
-  rightIcon,
   _disabled,
   _pressed,
   _loading,
@@ -61,17 +59,17 @@ export const Button: FC<ButtonProps> = ({
               ]}
             />
           )}
-          {!!leftIcon && (
-            <View
-              {...theme?.__leftIcon}
-              {...__leftIcon}
-              {...(isPressed && theme?._pressed?.__leftIcon)}
-              {...(isPressed && _pressed?.__leftIcon)}
-              {...(isLoading && theme?._loading?.__leftIcon)}
-              {...(isLoading && _loading?.__leftIcon)}
-              {...(isDisabled && theme?._disabled?.__leftIcon)}
-              {...(isDisabled && _disabled?.__leftIcon)}
-              style={[
+          {!!__leftIcon &&
+            createElement(__leftIcon?.type, {
+              ...theme?.__leftIcon,
+              ...__leftIcon,
+              ...(isPressed && theme?._pressed?.__leftIcon),
+              ...(isLoading && _loading?.__leftIcon),
+              ...(isLoading && theme?._loading?.__leftIcon),
+              ...(isPressed && _pressed?.__leftIcon),
+              ...(isDisabled && theme?._disabled?.__leftIcon),
+              ...(isDisabled && _disabled?.__leftIcon),
+              style: [
                 defaultStyles.leftIcon,
                 theme?.__leftIcon?.style,
                 __leftIcon?.style,
@@ -81,11 +79,8 @@ export const Button: FC<ButtonProps> = ({
                 isLoading && _loading?.__leftIcon?.style,
                 isDisabled && theme?._disabled?.__leftIcon?.style,
                 isDisabled && _disabled?.__leftIcon?.style,
-              ]}
-            >
-              {leftIcon}
-            </View>
-          )}
+              ],
+            })}
           <Text
             {...theme?.__title}
             {...__title}
@@ -109,17 +104,17 @@ export const Button: FC<ButtonProps> = ({
           >
             {!isLoading ? title : _loading?.title}
           </Text>
-          {!!rightIcon && (
-            <View
-              {...theme?.__rightIcon}
-              {...__rightIcon}
-              {...(isPressed && theme?._pressed?.__rightIcon)}
-              {...(isPressed && _pressed?.__rightIcon)}
-              {...(isLoading && theme?._loading?.__rightIcon)}
-              {...(isLoading && _loading?.__rightIcon)}
-              {...(isDisabled && theme?._disabled?.__rightIcon)}
-              {...(isDisabled && _disabled?.__rightIcon)}
-              style={[
+          {!!__rightIcon &&
+            createElement(__rightIcon?.type, {
+              ...theme?.__rightIcon,
+              ...__rightIcon,
+              ...(isPressed && theme?._pressed?.__rightIcon),
+              ...(isLoading && _loading?.__rightIcon),
+              ...(isLoading && theme?._loading?.__rightIcon),
+              ...(isPressed && _pressed?.__rightIcon),
+              ...(isDisabled && theme?._disabled?.__rightIcon),
+              ...(isDisabled && _disabled?.__rightIcon),
+              style: [
                 defaultStyles.rightIcon,
                 theme?.__rightIcon?.style,
                 __rightIcon?.style,
@@ -129,11 +124,8 @@ export const Button: FC<ButtonProps> = ({
                 isLoading && _loading?.__rightIcon?.style,
                 isDisabled && theme?._disabled?.__rightIcon?.style,
                 isDisabled && _disabled?.__rightIcon?.style,
-              ]}
-            >
-              {leftIcon}
-            </View>
-          )}
+              ],
+            })}
         </>
       )}
     </Pressable>

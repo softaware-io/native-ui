@@ -8,7 +8,8 @@ import {
 } from "react-native";
 import { ModalProps } from "react-native-modal";
 import { EasingFunctionFactory } from "react-native-reanimated";
-import { ButtonTitleProps } from "./Button/types";
+import { ButtonIconProps, ButtonTitleProps } from "./Button/types";
+import { CheckboxIconProps, CheckboxLabelProps } from "./Checkbox/types";
 import { SelectPickerProps, SelectTextInputProps } from "./Select/types";
 
 type ColorShades = {
@@ -66,25 +67,25 @@ export type ComponentOverrides = {
     style?: ViewProps["style"];
     __title?: ButtonTitleProps;
     __spinner?: ActivityIndicatorIOSProps;
-    __leftIcon?: ViewProps;
-    __rightIcon?: ViewProps;
+    __leftIcon?: ButtonIconProps;
+    __rightIcon?: ButtonIconProps;
     _pressed?: {
       style?: ViewProps["style"];
       __title?: ButtonTitleProps;
-      __leftIcon?: ViewProps;
-      __rightIcon?: ViewProps;
+      __leftIcon?: ButtonIconProps;
+      __rightIcon?: ButtonIconProps;
     };
     _disabled?: {
       style?: ViewProps["style"];
       __title?: ButtonTitleProps;
-      __leftIcon?: ViewProps;
-      __rightIcon?: ViewProps;
+      __leftIcon?: ButtonIconProps;
+      __rightIcon?: ButtonIconProps;
     };
     _loading?: {
       style?: ViewProps["style"];
       __title?: ButtonTitleProps;
-      __leftIcon?: ViewProps;
-      __rightIcon?: ViewProps;
+      __leftIcon?: ButtonIconProps;
+      __rightIcon?: ButtonIconProps;
     };
   };
   Modal?: {
@@ -150,6 +151,25 @@ export type ComponentOverrides = {
       borderWidth?: number;
       borderColor?: string;
       borderRadius?: number;
+    };
+  };
+  Checkbox?: {
+    style?: ViewProps["style"];
+    __label?: CheckboxLabelProps;
+    __icon?: CheckboxIconProps;
+    _disabled?: {
+      style?: ViewProps["style"];
+      __label?: CheckboxLabelProps;
+      __icon?: CheckboxIconProps;
+    };
+    _pressed?: {
+      style?: ViewProps["style"];
+      __label?: CheckboxLabelProps;
+      __icon?: CheckboxIconProps;
+    };
+    _checked?: {
+      style?: ViewProps["style"];
+      __label?: CheckboxLabelProps;
     };
   };
 };
