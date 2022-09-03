@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/softaware-io/native-ui/compare/v0.3.0...v0.4.0) (2022-09-03)
+
+
+### Features
+
+* add Radio component, fix Checkbox container styles, change Checkbox 'value' to 'isChecked' ([7d4f13e](https://github.com/softaware-io/native-ui/commit/7d4f13e40e80493a0333fdcf48f174557491c91c))
+* add theme functions ([b1b4b33](https://github.com/softaware-io/native-ui/commit/b1b4b3377655073db49ea477a54c782833449779))
+
+
+### Bug Fixes
+
+* rename context related stuff to new NativeUi ([c16d3f5](https://github.com/softaware-io/native-ui/commit/c16d3f56f59504c7abe81ac66b7e53640e611928))
+
 ## [0.3.0](https://github.com/softaware-io/native-ui/compare/v0.2.3...v0.3.0) (2022-09-03)
 
 
