@@ -7,13 +7,13 @@ import {
   defaultFontSizes,
 } from "./theme";
 
-type UiContextProps = {
+type NativeUiContextProps = {
   colors: DefaultColors;
   fontSizes: DefaultFontSizes;
   components: ComponentOverrides;
 };
 
-type UiContextProviderProps = {
+type NativeUiContextProviderProps = {
   theme: {
     colors?: Omit<DefaultColors, "white" | "black"> & {
       white?: string;
@@ -28,22 +28,22 @@ type UiContextProviderProps = {
   children: ReactNode;
 };
 
-export const UiContext = createContext<UiContextProps>({
+export const NativeUiContext = createContext<NativeUiContextProps>({
   colors: defaultColors,
   fontSizes: defaultFontSizes,
   components: {},
 });
 
-export const UiContextProvider = ({
+export const NativeUiContextProvider = ({
   theme,
   children,
-}: UiContextProviderProps) => {
+}: NativeUiContextProviderProps) => {
   const colors = { ...defaultColors, ...theme.colors };
   const fontSizes = { ...defaultFontSizes, ...theme.fontSizes };
   const components = theme.components?.({ colors, fontSizes }) || {};
 
   return (
-    <UiContext.Provider
+    <NativeUiContext.Provider
       value={{
         colors,
         fontSizes,
@@ -51,6 +51,6 @@ export const UiContextProvider = ({
       }}
     >
       {children}
-    </UiContext.Provider>
+    </NativeUiContext.Provider>
   );
 };

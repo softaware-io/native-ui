@@ -1,4 +1,4 @@
 import { useContext } from "react";
-import { UiContext } from "../context";
+import { NativeUiContext } from "../context";
 
-export const useTheme = () => useContext(UiContext);
+export const useTheme = () => useContext(NativeUiContext);
