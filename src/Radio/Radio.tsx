@@ -4,7 +4,6 @@ import { createStyles } from "../utils/createStyles";
 import { useTheme } from "../utils/useTheme";
 import { RadioOptionProps, RadioProps } from "./types";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import maxBorderRadius from "../utils/maxBorderRadius";
 import { FontAwesome } from "@expo/vector-icons";
 
 export const Radio: FC<RadioProps> & { Option: typeof Option } = ({
@@ -146,7 +145,7 @@ const Option: FC<RadioOptionProps> = ({
 
 Radio.Option = Option;
 
-const useStyles = createStyles(({ colors, fontSizes }) => ({
+const useStyles = createStyles(({ colors, fontSizes, fn }) => ({
   optionContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -160,7 +159,7 @@ const useStyles = createStyles(({ colors, fontSizes }) => ({
     borderWidth: wp("0.5%"),
     borderColor: colors.primary[500],
     backgroundColor: "transparent",
-    borderRadius: maxBorderRadius(),
+    borderRadius: fn.maxBorderRadius(),
   },
   pressedOption: { opacity: 0.9 },
   disabledOption: { opacity: 0.5 },

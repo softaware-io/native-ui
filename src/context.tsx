@@ -5,12 +5,15 @@ import {
   ComponentOverrides,
   defaultColors,
   defaultFontSizes,
+  DefaultFunctions,
+  defaultFunctions,
 } from "./theme";
 
 type NativeUiContextProps = {
   colors: DefaultColors;
   fontSizes: DefaultFontSizes;
   components: ComponentOverrides;
+  fn: DefaultFunctions;
 };
 
 type NativeUiContextProviderProps = {
@@ -23,7 +26,9 @@ type NativeUiContextProviderProps = {
     components?: (theme: {
       colors: DefaultColors;
       fontSizes: DefaultFontSizes;
+      fn: DefaultFunctions;
     }) => ComponentOverrides;
+    fn?: DefaultFunctions;
   };
   children: ReactNode;
 };
@@ -32,6 +37,7 @@ export const NativeUiContext = createContext<NativeUiContextProps>({
   colors: defaultColors,
   fontSizes: defaultFontSizes,
   components: {},
+  fn: defaultFunctions,
 });
 
 export const NativeUiContextProvider = ({
@@ -40,7 +46,8 @@ export const NativeUiContextProvider = ({
 }: NativeUiContextProviderProps) => {
   const colors = { ...defaultColors, ...theme.colors };
   const fontSizes = { ...defaultFontSizes, ...theme.fontSizes };
-  const components = theme.components?.({ colors, fontSizes }) || {};
+  const fn = { ...defaultFunctions, ...theme.fn };
+  const components = theme.components?.({ colors, fontSizes, fn }) || {};
 
   return (
     <NativeUiContext.Provider
@@ -48,6 +55,7 @@ export const NativeUiContextProvider = ({
         colors,
         fontSizes,
         components,
+        fn,
       }}
     >
       {children}

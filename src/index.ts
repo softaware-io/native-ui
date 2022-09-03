@@ -19,7 +19,6 @@ export * from "./context";
 export * from "./utils/useTheme";
 export * from "./utils/extendComponents";
 export * from "./utils/createStyles";
-export * from "./utils/maxBorderRadius";
 export {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,

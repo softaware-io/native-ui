@@ -1,4 +1,4 @@
-import { DefaultColors, DefaultFontSizes } from "../theme";
+import { DefaultColors, DefaultFontSizes, DefaultFunctions } from "../theme";
 import { useTheme } from "./useTheme";
 import { ImageStyle, StyleSheet, TextStyle, ViewStyle } from "react-native";
 
@@ -8,6 +8,7 @@ export function createStyles<T extends NamedStyles<T> | NamedStyles<any>>(
   input: (theme: {
     colors: DefaultColors;
     fontSizes: DefaultFontSizes;
+    fn: DefaultFunctions;
   }) => T | NamedStyles<T>
 ) {
   const useStyles = () => {

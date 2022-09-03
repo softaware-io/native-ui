@@ -1,6 +1,5 @@
 import {
   ActivityIndicatorIOSProps,
-  Dimensions,
   EasingFunction,
   PixelRatio,
   TextInputProps,
@@ -12,6 +11,10 @@ import { ButtonIconProps, ButtonTitleProps } from "./Button/types";
 import { CheckboxIconProps, CheckboxLabelProps } from "./Checkbox/types";
 import { RadioLabelProps } from "./Radio/types";
 import { SelectPickerProps, SelectTextInputProps } from "./Select/types";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 type ColorShades = {
   50: string;
@@ -62,6 +65,10 @@ export type DefaultFontSizes = {
   xl: number;
   [key: string]: number;
 } & { custom: (size: number, scale?: number) => number };
+
+export type DefaultFunctions = {
+  [key: string]: (...args: any[]) => any;
+};
 
 export type ComponentOverrides = {
   Button?: {
@@ -487,8 +494,7 @@ export const defaultColors: DefaultColors = {
   },
 };
 
-const { width } = Dimensions.get("window");
-const defaultScale = width / 320;
+const defaultScale = wp("100%") / 320;
 
 const normalize = (size: number, scale = defaultScale) =>
   Math.round(PixelRatio.roundToNearestPixel(size * scale));
@@ -502,4 +508,8 @@ export const defaultFontSizes: DefaultFontSizes = {
   lg: normalize(20),
   xl: normalize(26),
   custom: (size: number, scale?: number) => normalize(size, scale),
+};
+
+export const defaultFunctions: DefaultFunctions = {
+  maxBorderRadius: () => Math.round(wp("100%") + hp("100%")) / 2,
 };
