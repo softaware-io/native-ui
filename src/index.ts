@@ -15,6 +15,8 @@ export * from "./Checkbox/Checkbox";
 export * from "./Checkbox/types";
 export * from "./Radio/Radio";
 export * from "./Radio/types";
+export * from "./Switch/Switch";
+export * from "./Switch/types";
 export * from "./context";
 export * from "./utils/useTheme";
 export * from "./utils/extendComponents";

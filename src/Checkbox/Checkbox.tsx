@@ -29,7 +29,7 @@ export const Checkbox: FC<CheckboxProps> = ({
     <Pressable
       {...props}
       style={({ pressed: isPressed }) => [
-        defaultStyles.container,
+        defaultStyles.checkbox,
         theme?.style,
         style,
         isChecked && theme?._checked?.style,
@@ -45,17 +45,25 @@ export const Checkbox: FC<CheckboxProps> = ({
       {({ pressed: isPressed }) => (
         <>
           <View
+            {...theme?.__thumb}
+            {...__thumb}
+            {...(isChecked && theme?._checked?.__thumb)}
+            {...(isChecked && _checked?.__thumb)}
+            {...(isPressed && theme?._pressed?.__thumb)}
+            {...(isPressed && _pressed?.__thumb)}
+            {...(isDisabled && theme?._disabled?.__thumb)}
+            {...(isDisabled && _disabled?.__thumb)}
             style={[
-              defaultStyles.checkbox,
+              defaultStyles.thumb,
               theme?.__thumb?.style,
               __thumb?.style,
-              isChecked && defaultStyles.checkedCheckbox,
+              isChecked && defaultStyles.checkedThumb,
               isChecked && theme?._checked?.__thumb?.style,
               isChecked && _checked?.__thumb?.style,
-              isPressed && defaultStyles.pressedCheckbox,
+              isPressed && defaultStyles.pressedThumb,
               isPressed && theme?._pressed?.__thumb?.style,
               isPressed && _pressed?.__thumb?.style,
-              isDisabled && defaultStyles.disabledCheckbox,
+              isDisabled && defaultStyles.disabledThumb,
               isDisabled && theme?._disabled?.__thumb?.style,
               isDisabled && _disabled?.__thumb?.style,
             ]}
@@ -114,12 +122,12 @@ export const Checkbox: FC<CheckboxProps> = ({
 };
 
 const useStyles = createStyles(({ colors, fontSizes }) => ({
-  container: {
+  checkbox: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
-  checkbox: {
+  thumb: {
     width: wp("7%"),
     height: wp("7%"),
     justifyContent: "center",
@@ -128,11 +136,11 @@ const useStyles = createStyles(({ colors, fontSizes }) => ({
     borderColor: colors.primary[500],
     backgroundColor: "transparent",
   },
-  pressedCheckbox: { opacity: 0.9 },
-  checkedCheckbox: {
+  pressedThumb: { opacity: 0.9 },
+  checkedThumb: {
     backgroundColor: colors.primary[500],
   },
-  disabledCheckbox: { opacity: 0.5 },
+  disabledThumb: { opacity: 0.5 },
   icon: {
     fontSize: wp("5%"),
   },

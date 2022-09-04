@@ -14,6 +14,7 @@ export type ButtonIconProps = TextProps & {
   color?: string | OpaqueColorValue;
   [key: string]: any;
 };
+export type ButtonSpinnerProps = ActivityIndicatorIOSProps;
 
 export type ButtonProps = {
   title: string;
@@ -21,7 +22,7 @@ export type ButtonProps = {
   isLoading?: boolean;
   style?: ViewProps["style"];
   __title?: ButtonTitleProps;
-  __spinner?: ActivityIndicatorIOSProps;
+  __spinner?: ButtonSpinnerProps;
   __leftIcon?: ButtonIconProps;
   __rightIcon?: ButtonIconProps;
   _pressed?: {

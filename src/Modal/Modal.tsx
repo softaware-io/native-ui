@@ -7,7 +7,12 @@ import {
 } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
 import { useTheme } from "../utils/useTheme";
-import { ActionsProps, ContentProps, HeaderProps, ModalProps } from "./types";
+import {
+  ModalActionsProps,
+  ModalContentProps,
+  ModalHeaderProps,
+  ModalProps,
+} from "./types";
 
 export const Modal: FC<ModalProps> & { Header: typeof Header } & {
   Content: typeof Content;
@@ -30,7 +35,7 @@ export const Modal: FC<ModalProps> & { Header: typeof Header } & {
   );
 };
 
-const Header: FC<HeaderProps> = ({ style, children, ...props }) => {
+const Header: FC<ModalHeaderProps> = ({ style, children, ...props }) => {
   const { components } = useTheme();
   const theme = components.Modal?.Header;
 
@@ -43,7 +48,7 @@ const Header: FC<HeaderProps> = ({ style, children, ...props }) => {
   );
 };
 
-const Content: FC<ContentProps> = ({ style, children, ...props }) => {
+const Content: FC<ModalContentProps> = ({ style, children, ...props }) => {
   const { components } = useTheme();
   const theme = components.Modal?.Content;
 
@@ -56,7 +61,7 @@ const Content: FC<ContentProps> = ({ style, children, ...props }) => {
   );
 };
 
-const Actions: FC<ActionsProps> = ({ style, children, ...props }) => {
+const Actions: FC<ModalActionsProps> = ({ style, children, ...props }) => {
   const { components } = useTheme();
   const theme = components.Modal?.Actions;
 

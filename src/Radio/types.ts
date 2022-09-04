@@ -14,6 +14,7 @@ export type RadioIconProps = TextProps & {
   color?: string | OpaqueColorValue;
   [key: string]: any;
 };
+export type RadioThumbProps = Omit<ViewProps, "children">;
 
 export type RadioProps = {
   children: ReactElement<RadioOptionProps> | ReactElement<RadioOptionProps>[];
@@ -28,23 +29,23 @@ export type RadioOptionProps = {
   isChecked?: boolean;
   style?: ViewProps["style"];
   __label?: RadioLabelProps;
-  __thumb?: Pick<ViewProps, "style">;
+  __thumb?: RadioThumbProps;
   __icon?: RadioIconProps;
   _disabled?: {
     style?: ViewProps["style"];
     __label?: RadioLabelProps;
-    __thumb?: Pick<ViewProps, "style">;
+    __thumb?: RadioThumbProps;
     __icon?: RadioIconProps;
   };
   _pressed?: {
     style?: ViewProps["style"];
     __label?: RadioLabelProps;
-    __thumb?: Pick<ViewProps, "style">;
+    __thumb?: RadioThumbProps;
     __icon?: RadioIconProps;
   };
   _checked?: {
     style?: ViewProps["style"];
     __label?: RadioLabelProps;
-    __thumb?: Pick<ViewProps, "style">;
+    __thumb?: RadioThumbProps;
   };
 } & Omit<PressableProps, "disabled">;

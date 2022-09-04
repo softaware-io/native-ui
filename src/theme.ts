@@ -1,5 +1,4 @@
 import {
-  ActivityIndicatorIOSProps,
   EasingFunction,
   PixelRatio,
   TextInputProps,
@@ -7,14 +6,31 @@ import {
 } from "react-native";
 import { ModalProps } from "react-native-modal";
 import { EasingFunctionFactory } from "react-native-reanimated";
-import { ButtonIconProps, ButtonTitleProps } from "./Button/types";
-import { CheckboxIconProps, CheckboxLabelProps } from "./Checkbox/types";
-import { RadioLabelProps } from "./Radio/types";
-import { SelectPickerProps, SelectTextInputProps } from "./Select/types";
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
+import {
+  ButtonIconProps,
+  ButtonSpinnerProps,
+  ButtonTitleProps,
+} from "./Button/types";
+import {
+  CheckboxIconProps,
+  CheckboxLabelProps,
+  CheckboxThumbProps,
+} from "./Checkbox/types";
+import { RadioLabelProps, RadioThumbProps } from "./Radio/types";
+import {
+  SelectModalProps,
+  SelectPickerProps,
+  SelectTextInputProps,
+} from "./Select/types";
+import {
+  SwitchIconProps,
+  SwitchThumbProps,
+  SwitchTrackProps,
+} from "./Switch/types";
 
 type ColorShades = {
   50: string;
@@ -74,7 +90,7 @@ export type ComponentOverrides = {
   Button?: {
     style?: ViewProps["style"];
     __title?: ButtonTitleProps;
-    __spinner?: ActivityIndicatorIOSProps;
+    __spinner?: ButtonSpinnerProps;
     __leftIcon?: ButtonIconProps;
     __rightIcon?: ButtonIconProps;
     _pressed?: {
@@ -128,7 +144,7 @@ export type ComponentOverrides = {
     style?: ViewProps["style"];
     __textInput?: SelectTextInputProps;
     __picker?: SelectPickerProps;
-    __modal?: ModalProps;
+    __modal?: SelectModalProps;
     _disabled?: {
       style?: ViewProps["style"];
     };
@@ -165,23 +181,23 @@ export type ComponentOverrides = {
     style?: ViewProps["style"];
     __label?: CheckboxLabelProps;
     __icon?: CheckboxIconProps;
-    __thumb?: Pick<ViewProps, "style">;
+    __thumb?: CheckboxThumbProps;
     _disabled?: {
       style?: ViewProps["style"];
       __label?: CheckboxLabelProps;
       __icon?: CheckboxIconProps;
-      __thumb?: Pick<ViewProps, "style">;
+      __thumb?: CheckboxThumbProps;
     };
     _pressed?: {
       style?: ViewProps["style"];
       __label?: CheckboxLabelProps;
       __icon?: CheckboxIconProps;
-      __thumb?: Pick<ViewProps, "style">;
+      __thumb?: CheckboxThumbProps;
     };
     _checked?: {
       style?: ViewProps["style"];
       __label?: CheckboxLabelProps;
-      __thumb?: Pick<ViewProps, "style">;
+      __thumb?: CheckboxThumbProps;
     };
   };
   Radio?: {
@@ -190,24 +206,48 @@ export type ComponentOverrides = {
       style?: ViewProps["style"];
       __label?: RadioLabelProps;
       __icon?: CheckboxIconProps;
-      __thumb?: Pick<ViewProps, "style">;
+      __thumb?: RadioThumbProps;
       _disabled?: {
         style?: ViewProps["style"];
         __label?: RadioLabelProps;
         __icon?: CheckboxIconProps;
-        __thumb?: Pick<ViewProps, "style">;
+        __thumb?: RadioThumbProps;
       };
       _pressed?: {
         style?: ViewProps["style"];
         __label?: RadioLabelProps;
         __icon?: CheckboxIconProps;
-        __thumb?: Pick<ViewProps, "style">;
+        __thumb?: RadioThumbProps;
       };
       _checked?: {
         style?: ViewProps["style"];
         __label?: RadioLabelProps;
-        __thumb?: Pick<ViewProps, "style">;
+        __thumb?: RadioThumbProps;
       };
+    };
+  };
+  Switch?: {
+    style?: ViewProps["style"];
+    __icon?: SwitchIconProps;
+    __thumb?: SwitchThumbProps;
+    __track?: SwitchTrackProps;
+    _disabled?: {
+      style?: ViewProps["style"];
+      __icon?: SwitchIconProps;
+      __thumb?: SwitchThumbProps;
+      __track?: SwitchTrackProps;
+    };
+    _pressed?: {
+      style?: ViewProps["style"];
+      __icon?: SwitchIconProps;
+      __thumb?: SwitchThumbProps;
+      __track?: SwitchTrackProps;
+    };
+    _toggled?: {
+      style?: ViewProps["style"];
+      __thumb?: SwitchThumbProps;
+      __track?: SwitchTrackProps;
+      __icon?: SwitchIconProps;
     };
   };
 };

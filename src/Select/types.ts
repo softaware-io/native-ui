@@ -24,19 +24,20 @@ export type SelectPickerProps = Omit<
   | "prompt"
 >;
 
+export type SelectModalProps = ModalProps;
+
 export type SelectProps = {
   style?: ViewProps["style"];
   isDisabled?: boolean;
-  selectedValue: string;
+  value: string;
   displayValue?: (value: string) => string;
   onValueChange: (itemValue: string) => void;
   placeholder?: string;
-  placeholderTextColor?: string;
   children: ReactNode;
   _disabled?: {
     style?: ViewProps["style"];
   };
   __textInput?: SelectTextInputProps;
   __picker?: SelectPickerProps;
-  __modal?: ModalProps;
+  __modal?: SelectModalProps;
 };

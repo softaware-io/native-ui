@@ -14,8 +14,7 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
   style,
   isDisabled = false,
   placeholder,
-  placeholderTextColor,
-  selectedValue,
+  value,
   onValueChange,
   displayValue,
   _disabled,
@@ -49,9 +48,8 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
             {...__textInput}
             isReadOnly
             pointerEvents="none"
-            value={displayValue?.(selectedValue) || selectedValue}
+            value={displayValue?.(value) || value}
             placeholder={placeholder}
-            placeholderTextColor={placeholderTextColor}
             isDisabled={isDisabled}
           />
         </Pressable>
@@ -84,7 +82,7 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
               ref={pickerRef}
               prompt={placeholder}
               placeholder={placeholder}
-              selectedValue={selectedValue}
+              selectedValue={value}
               onValueChange={(itemValue) => onValueChange(itemValue)}
               enabled={!isDisabled}
               style={defaultStyles.iosPicker}
@@ -113,9 +111,8 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
           {...__textInput}
           isReadOnly
           pointerEvents="none"
-          value={displayValue?.(selectedValue) || selectedValue}
+          value={displayValue?.(value) || value}
           placeholder={placeholder}
-          placeholderTextColor={placeholderTextColor}
           isDisabled={isDisabled}
         />
       </Pressable>
@@ -125,7 +122,7 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
         ref={pickerRef}
         prompt={placeholder}
         placeholder={placeholder}
-        selectedValue={selectedValue}
+        selectedValue={value}
         onValueChange={(itemValue) => onValueChange(itemValue)}
         enabled={!isDisabled}
         style={defaultStyles.picker}

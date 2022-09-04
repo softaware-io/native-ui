@@ -13,6 +13,7 @@ export type CheckboxIconProps = TextProps & {
   color?: string | OpaqueColorValue;
   [key: string]: any;
 };
+export type CheckboxThumbProps = Omit<ViewProps, "children">;
 
 export type CheckboxProps = {
   label?: string;
@@ -22,22 +23,22 @@ export type CheckboxProps = {
   style?: ViewProps["style"];
   __label?: CheckboxLabelProps;
   __icon?: CheckboxIconProps;
-  __thumb?: Pick<ViewProps, "style">;
+  __thumb?: CheckboxThumbProps;
   _disabled?: {
     style?: ViewProps["style"];
     __label?: CheckboxLabelProps;
     __icon?: CheckboxIconProps;
-    __thumb?: Pick<ViewProps, "style">;
+    __thumb?: CheckboxThumbProps;
   };
   _pressed?: {
     style?: ViewProps["style"];
     __label?: CheckboxLabelProps;
     __icon?: CheckboxIconProps;
-    __thumb?: Pick<ViewProps, "style">;
+    __thumb?: CheckboxThumbProps;
   };
   _checked?: {
     style?: ViewProps["style"];
     __label?: CheckboxLabelProps;
-    __thumb?: Pick<ViewProps, "style">;
+    __thumb?: CheckboxThumbProps;
   };
 } & Omit<PressableProps, "disabled">;

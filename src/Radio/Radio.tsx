@@ -64,7 +64,7 @@ const Option: FC<RadioOptionProps> = ({
       {...props}
       disabled={isDisabled}
       style={({ pressed: isPressed }) => [
-        defaultStyles.optionContainer,
+        defaultStyles.option,
         theme?.style,
         style,
         isChecked && theme?._checked?.style,
@@ -78,16 +78,24 @@ const Option: FC<RadioOptionProps> = ({
       {({ pressed: isPressed }) => (
         <>
           <View
+            {...theme?.__thumb}
+            {...__thumb}
+            {...(isChecked && theme?._checked?.__thumb)}
+            {...(isChecked && _checked?.__thumb)}
+            {...(isPressed && theme?._pressed?.__thumb)}
+            {...(isPressed && _pressed?.__thumb)}
+            {...(isDisabled && theme?._disabled?.__thumb)}
+            {...(isDisabled && _disabled?.__thumb)}
             style={[
-              defaultStyles.option,
+              defaultStyles.thumb,
               theme?.__thumb?.style,
               __thumb?.style,
               isChecked && theme?._checked?.__thumb?.style,
               isChecked && _checked?.__thumb?.style,
-              isPressed && defaultStyles.pressedOption,
+              isPressed && defaultStyles.pressedThumb,
               isPressed && theme?._pressed?.__thumb?.style,
               isPressed && _pressed?.__thumb?.style,
-              isDisabled && defaultStyles.disabledOption,
+              isDisabled && defaultStyles.disabledThumb,
               isDisabled && theme?._disabled?.__thumb?.style,
               isDisabled && _disabled?.__thumb?.style,
             ]}
@@ -146,12 +154,12 @@ const Option: FC<RadioOptionProps> = ({
 Radio.Option = Option;
 
 const useStyles = createStyles(({ colors, fontSizes, fn }) => ({
-  optionContainer: {
+  option: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
-  option: {
+  thumb: {
     width: wp("7%"),
     height: wp("7%"),
     justifyContent: "center",
@@ -161,8 +169,8 @@ const useStyles = createStyles(({ colors, fontSizes, fn }) => ({
     backgroundColor: "transparent",
     borderRadius: fn.maxBorderRadius(),
   },
-  pressedOption: { opacity: 0.9 },
-  disabledOption: { opacity: 0.5 },
+  pressedThumb: { opacity: 0.9 },
+  disabledThumb: { opacity: 0.5 },
   icon: {
     fontSize: wp("5%"),
     color: colors.primary[500],
