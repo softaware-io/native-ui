@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/softaware-io/native-ui/compare/v0.4.0...v0.5.0) (2022-09-04)
+
+
+### Features
+
+* add Switch component, change types name of some components ([88442f7](https://github.com/softaware-io/native-ui/commit/88442f736ad6dfcd0ecf78c4d5757524aaec4a5d))
+
 ## [0.4.0](https://github.com/softaware-io/native-ui/compare/v0.3.0...v0.4.0) (2022-09-03)
 
 
