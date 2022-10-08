@@ -1,10 +1,11 @@
+import { FontAwesome } from "@expo/vector-icons";
 import { createElement, FC, ReactElement } from "react";
 import { GestureResponderEvent, Pressable, Text, View } from "react-native";
+import Animated, { Easing, ZoomIn, ZoomOut } from "react-native-reanimated";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
 import { useTheme } from "../utils/useTheme";
 import { RadioOptionProps, RadioProps } from "./types";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { FontAwesome } from "@expo/vector-icons";
 
 export const Radio: FC<RadioProps> & { Option: typeof Option } = ({
   style,
@@ -100,26 +101,32 @@ const Option: FC<RadioOptionProps> = ({
               isDisabled && _disabled?.__thumb?.style,
             ]}
           >
-            {isChecked &&
-              createElement(__icon?.type || FontAwesome, {
-                name: "circle",
-                allowFontScaling: false,
-                ...theme?.__icon,
-                ...__icon,
-                ...(isPressed && theme?._pressed?.__icon),
-                ...(isPressed && _pressed?.__icon),
-                ...(isDisabled && theme?._disabled?.__icon),
-                ...(isDisabled && _disabled?.__icon),
-                style: [
-                  defaultStyles.icon,
-                  theme?.__icon?.style,
-                  __icon?.style,
-                  isPressed && theme?._pressed?.__icon?.style,
-                  isPressed && _pressed?.__icon?.style,
-                  isDisabled && theme?._disabled?.__icon?.style,
-                  isDisabled && _disabled?.__icon?.style,
-                ],
-              })}
+            {isChecked && (
+              <Animated.View
+                entering={ZoomIn.easing(Easing.elastic(1.2))}
+                exiting={ZoomOut.duration(100)}
+              >
+                {createElement(__icon?.type || FontAwesome, {
+                  name: "circle",
+                  allowFontScaling: false,
+                  ...theme?.__icon,
+                  ...__icon,
+                  ...(isPressed && theme?._pressed?.__icon),
+                  ...(isPressed && _pressed?.__icon),
+                  ...(isDisabled && theme?._disabled?.__icon),
+                  ...(isDisabled && _disabled?.__icon),
+                  style: [
+                    defaultStyles.icon,
+                    theme?.__icon?.style,
+                    __icon?.style,
+                    isPressed && theme?._pressed?.__icon?.style,
+                    isPressed && _pressed?.__icon?.style,
+                    isDisabled && theme?._disabled?.__icon?.style,
+                    isDisabled && _disabled?.__icon?.style,
+                  ],
+                })}
+              </Animated.View>
+            )}
           </View>
           <Text
             {...theme?.__label}

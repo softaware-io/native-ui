@@ -20,6 +20,7 @@ import {
   CheckboxLabelProps,
   CheckboxThumbProps,
 } from "./Checkbox/types";
+import { ProgressBarStyle } from "./ProgressBar/types";
 import { RadioLabelProps, RadioThumbProps } from "./Radio/types";
 import {
   SelectModalProps,
@@ -157,24 +158,12 @@ export type ComponentOverrides = {
     easing?: EasingFunction | EasingFunctionFactory;
   };
   ProgressBar?: {
-    style?: ViewProps["style"];
+    style?: ProgressBarStyle;
     indeterminateAnimationDuration?: number;
-    color?: string;
-    unfilledColor?: string;
-    borderWidth?: number;
-    borderColor?: string;
-    borderRadius?: number;
     animationConfig?: object;
     animationType?: "decay" | "timing" | "spring";
-    width?: number;
-    height?: number;
     _disabled?: {
-      style?: ViewProps["style"];
-      color?: string;
-      unfilledColor?: string;
-      borderWidth?: number;
-      borderColor?: string;
-      borderRadius?: number;
+      style?: ProgressBarStyle;
     };
   };
   Checkbox?: {
