@@ -1,5 +1,5 @@
 import { createElement, FC, useEffect, useState } from "react";
-import { Pressable, View } from "react-native";
+import { Pressable, TextStyle, View, ViewStyle } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -147,7 +147,16 @@ export const Switch: FC<SwitchProps> = ({
   );
 };
 
-const useStyles = createStyles(({ colors, fn }) => ({
+type Style = {
+  switch: ViewStyle;
+  disabledSwitch: ViewStyle;
+  track: ViewStyle;
+  checkedTrack: ViewStyle;
+  thumb: ViewStyle;
+  icon: TextStyle;
+};
+
+const useStyles = createStyles<Style>(({ colors, fn }) => ({
   switch: {
     width: wp("15%"),
     paddingVertical: wp("1%"),

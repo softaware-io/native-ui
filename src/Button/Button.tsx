@@ -1,5 +1,11 @@
 import { createElement, FC } from "react";
-import { ActivityIndicator, Pressable, Text } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  Text,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -132,7 +138,18 @@ export const Button: FC<ButtonProps> = ({
   );
 };
 
-const useStyles = createStyles(({ colors, fontSizes }) => ({
+type Style = {
+  button: ViewStyle;
+  pressedButton: ViewStyle;
+  loadingButton: ViewStyle;
+  disabledButton: ViewStyle;
+  spinner: ViewStyle;
+  leftIcon: TextStyle;
+  rightIcon: TextStyle;
+  title: TextStyle;
+};
+
+const useStyles = createStyles<Style>(({ colors, fontSizes }) => ({
   button: {
     paddingHorizontal: wp("6%"),
     paddingVertical: hp("2%"),

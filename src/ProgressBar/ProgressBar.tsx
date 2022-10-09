@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { StyleSheet } from "react-native";
 import { Bar } from "react-native-progress";
 import {
   heightPercentageToDP as hp,
@@ -6,7 +7,7 @@ import {
 } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
 import { useTheme } from "../utils/useTheme";
-import { ProgressBarProps } from "./types";
+import { ProgressBarProps, ProgressBarStyle } from "./types";
 
 export const ProgressBar: FC<ProgressBarProps> = ({
   style,
@@ -32,7 +33,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     width: defaultWidth,
     height: defaultHeight,
     ...defaultStylesBar
-  } = (defaultStyles.bar || {}) as Record<string, any>;
+  } = defaultStyles.bar;
 
   const {
     color: themeColor,
@@ -43,7 +44,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     width: themeWidth,
     height: themeHeight,
     ...themeStylesBar
-  } = (theme?.style || {}) as Record<string, any>;
+  } = StyleSheet.flatten(theme?.style) || {};
 
   const {
     color,
@@ -54,7 +55,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     width,
     height,
     ...stylesBar
-  } = (style || {}) as Record<string, any>;
+  } = StyleSheet.flatten(style) || {};
 
   const {
     color: defaultDisabledColor,
@@ -65,7 +66,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     width: defaultDisabledWidth,
     height: defaultDisabledHeight,
     ...defaultStylesDisabledBar
-  } = (defaultStyles.disabledBar || {}) as Record<string, any>;
+  } = defaultStyles.disabledBar || {};
 
   const {
     color: themeDisabledColor,
@@ -76,7 +77,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     width: themeDisabledWidth,
     height: themeDisabledHeight,
     ...themeStylesDisabledBar
-  } = (theme?._disabled?.style || {}) as Record<string, any>;
+  } = StyleSheet.flatten(theme?._disabled?.style) || {};
 
   const {
     color: disabledColor,
@@ -87,27 +88,19 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     width: disabledWidth,
     height: disabledHeight,
     ...stylesDisabledBar
-  } = (_disabled?.style || {}) as Record<string, any>;
-
-  const transformWidth = (w: any) => {
-    if (w === "auto") {
-      return null;
-    }
-    return w;
-  };
+  } = StyleSheet.flatten(_disabled?.style) || {};
 
   return (
     <Bar
       {...props}
-      useNativeDriver={useNativeDriver}
-      width={transformWidth(
+      width={
         (isDisabled && disabledWidth) ||
-          (isDisabled && themeDisabledWidth) ||
-          (isDisabled && defaultDisabledWidth) ||
-          width ||
-          themeWidth ||
-          defaultWidth
-      )}
+        (isDisabled && themeDisabledWidth) ||
+        (isDisabled && defaultDisabledWidth) ||
+        width ||
+        themeWidth ||
+        defaultWidth
+      }
       height={
         (isDisabled && disabledHeight) ||
         (isDisabled && themeDisabledHeight) ||
@@ -162,6 +155,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
       }
       animationConfig={animationConfig || theme?.animationConfig}
       animationType={animationType || theme?.animationType}
+      useNativeDriver={useNativeDriver}
       style={[
         defaultStylesBar,
         themeStylesBar,
@@ -174,14 +168,19 @@ export const ProgressBar: FC<ProgressBarProps> = ({
   );
 };
 
-const useStyles = createStyles(({ colors }) => ({
+type Style = {
+  bar: ProgressBarStyle;
+  disabledBar: ProgressBarStyle;
+};
+
+const useStyles = createStyles<Style>(({ colors }) => ({
   bar: {
     color: colors.sky[500],
     borderColor: colors.sky[600],
     borderWidth: 0,
     unfilledColor: colors.blue[100],
     borderRadius: wp("5%"),
-    width: "auto",
+    width: null,
     height: hp("1.5%"),
   },
   disabledBar: {

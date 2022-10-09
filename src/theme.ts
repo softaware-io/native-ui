@@ -1,9 +1,4 @@
-import {
-  EasingFunction,
-  PixelRatio,
-  TextInputProps,
-  ViewProps,
-} from "react-native";
+import { EasingFunction, PixelRatio } from "react-native";
 import { ModalProps } from "react-native-modal";
 import { EasingFunctionFactory } from "react-native-reanimated";
 import {
@@ -12,26 +7,42 @@ import {
 } from "react-native-responsive-screen";
 import {
   ButtonIconProps,
+  ButtonProps,
   ButtonSpinnerProps,
   ButtonTitleProps,
 } from "./Button/types";
 import {
   CheckboxIconProps,
   CheckboxLabelProps,
+  CheckboxProps,
   CheckboxThumbProps,
 } from "./Checkbox/types";
-import { ProgressBarStyle } from "./ProgressBar/types";
-import { RadioLabelProps, RadioThumbProps } from "./Radio/types";
+import {
+  ModalActionsProps,
+  ModalContentProps,
+  ModalHeaderProps,
+} from "./Modal/types";
+import { ProgressBarProps } from "./ProgressBar/types";
+import {
+  RadioIconProps,
+  RadioLabelProps,
+  RadioProps,
+  RadioThumbProps,
+} from "./Radio/types";
 import {
   SelectModalProps,
   SelectPickerProps,
+  SelectProps,
   SelectTextInputProps,
 } from "./Select/types";
+import { SkeletonProps } from "./Skeleton/types";
 import {
   SwitchIconProps,
+  SwitchProps,
   SwitchThumbProps,
   SwitchTrackProps,
 } from "./Switch/types";
+import { TextInputProps } from "./TextInput/types";
 
 type ColorShades = {
   50: string;
@@ -89,25 +100,25 @@ export type DefaultFunctions = {
 
 export type ComponentOverrides = {
   Button?: {
-    style?: ViewProps["style"];
+    style?: ButtonProps["style"];
     __title?: ButtonTitleProps;
     __spinner?: ButtonSpinnerProps;
     __leftIcon?: ButtonIconProps;
     __rightIcon?: ButtonIconProps;
     _pressed?: {
-      style?: ViewProps["style"];
+      style?: ButtonProps["style"];
       __title?: ButtonTitleProps;
       __leftIcon?: ButtonIconProps;
       __rightIcon?: ButtonIconProps;
     };
     _disabled?: {
-      style?: ViewProps["style"];
+      style?: ButtonProps["style"];
       __title?: ButtonTitleProps;
       __leftIcon?: ButtonIconProps;
       __rightIcon?: ButtonIconProps;
     };
     _loading?: {
-      style?: ViewProps["style"];
+      style?: ButtonProps["style"];
       __title?: ButtonTitleProps;
       __leftIcon?: ButtonIconProps;
       __rightIcon?: ButtonIconProps;
@@ -116,124 +127,120 @@ export type ComponentOverrides = {
   Modal?: {
     style?: ModalProps["style"];
     Header?: {
-      style?: ViewProps["style"];
+      style?: ModalHeaderProps["style"];
     };
     Content?: {
-      style?: ViewProps["style"];
+      style?: ModalContentProps["style"];
     };
     Actions?: {
-      style?: ViewProps["style"];
+      style?: ModalActionsProps["style"];
     };
   };
   TextInput?: {
     style?: TextInputProps["style"];
-    placeholderTextColor?: string;
     _disabled?: {
       style?: TextInputProps["style"];
-      placeholderTextColor?: string;
     };
     _readOnly?: {
       style?: TextInputProps["style"];
-      placeholderTextColor?: string;
     };
     _focused?: {
       style?: TextInputProps["style"];
-      placeholderTextColor?: string;
     };
   };
   Select?: {
-    style?: ViewProps["style"];
+    style?: SelectProps["style"];
     __textInput?: SelectTextInputProps;
     __picker?: SelectPickerProps;
     __modal?: SelectModalProps;
     _disabled?: {
-      style?: ViewProps["style"];
+      style?: SelectProps["style"];
     };
   };
   Skeleton?: {
-    style?: ViewProps["style"];
+    style?: SkeletonProps["style"];
     fromColor?: string;
     toColor?: string;
     duration?: number;
     easing?: EasingFunction | EasingFunctionFactory;
   };
   ProgressBar?: {
-    style?: ProgressBarStyle;
+    style?: ProgressBarProps["style"];
     indeterminateAnimationDuration?: number;
     animationConfig?: object;
     animationType?: "decay" | "timing" | "spring";
     _disabled?: {
-      style?: ProgressBarStyle;
+      style?: ProgressBarProps["style"];
     };
   };
   Checkbox?: {
-    style?: ViewProps["style"];
+    style?: CheckboxProps["style"];
     __label?: CheckboxLabelProps;
     __icon?: CheckboxIconProps;
     __thumb?: CheckboxThumbProps;
     _disabled?: {
-      style?: ViewProps["style"];
+      style?: CheckboxProps["style"];
       __label?: CheckboxLabelProps;
       __icon?: CheckboxIconProps;
       __thumb?: CheckboxThumbProps;
     };
     _pressed?: {
-      style?: ViewProps["style"];
+      style?: CheckboxProps["style"];
       __label?: CheckboxLabelProps;
       __icon?: CheckboxIconProps;
       __thumb?: CheckboxThumbProps;
     };
     _checked?: {
-      style?: ViewProps["style"];
+      style?: CheckboxProps["style"];
       __label?: CheckboxLabelProps;
       __thumb?: CheckboxThumbProps;
     };
   };
   Radio?: {
-    style?: ViewProps["style"];
+    style?: RadioProps["style"];
     Option?: {
-      style?: ViewProps["style"];
+      style?: RadioProps["style"];
       __label?: RadioLabelProps;
-      __icon?: CheckboxIconProps;
+      __icon?: RadioIconProps;
       __thumb?: RadioThumbProps;
       _disabled?: {
-        style?: ViewProps["style"];
+        style?: RadioProps["style"];
         __label?: RadioLabelProps;
-        __icon?: CheckboxIconProps;
+        __icon?: RadioIconProps;
         __thumb?: RadioThumbProps;
       };
       _pressed?: {
-        style?: ViewProps["style"];
+        style?: RadioProps["style"];
         __label?: RadioLabelProps;
-        __icon?: CheckboxIconProps;
+        __icon?: RadioIconProps;
         __thumb?: RadioThumbProps;
       };
       _checked?: {
-        style?: ViewProps["style"];
+        style?: RadioProps["style"];
         __label?: RadioLabelProps;
         __thumb?: RadioThumbProps;
       };
     };
   };
   Switch?: {
-    style?: ViewProps["style"];
+    style?: SwitchProps["style"];
     __icon?: SwitchIconProps;
     __thumb?: SwitchThumbProps;
     __track?: SwitchTrackProps;
     _disabled?: {
-      style?: ViewProps["style"];
+      style?: SwitchProps["style"];
       __icon?: SwitchIconProps;
       __thumb?: SwitchThumbProps;
       __track?: SwitchTrackProps;
     };
     _pressed?: {
-      style?: ViewProps["style"];
+      style?: SwitchProps["style"];
       __icon?: SwitchIconProps;
       __thumb?: SwitchThumbProps;
       __track?: SwitchTrackProps;
     };
     _toggled?: {
-      style?: ViewProps["style"];
+      style?: SwitchProps["style"];
       __thumb?: SwitchThumbProps;
       __track?: SwitchTrackProps;
       __icon?: SwitchIconProps;

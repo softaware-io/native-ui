@@ -1,21 +1,21 @@
-import { StyleProp } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import { BarPropTypes } from "react-native-progress";
 
-export type ProgressBarStyle = BarPropTypes["style"] &
-  StyleProp<{
-    unfilledColor?: string;
-    color?: string;
-    borderColor?: string;
-    borderWidth?: number;
-    borderRadius?: number;
-    width?: number | "auto";
-    height?: number;
-  }>;
+export type ProgressBarStyle = Omit<
+  ViewStyle,
+  "width" | "height" | "borderColor"
+> & {
+  unfilledColor?: string;
+  color?: string;
+  borderColor?: string;
+  height?: number;
+  width?: number | null;
+};
 
 export type ProgressBarProps = {
   isDisabled?: boolean;
-  style?: ProgressBarStyle;
+  style?: StyleProp<ProgressBarStyle>;
   _disabled?: {
-    style?: ProgressBarStyle;
+    style?: StyleProp<ProgressBarStyle>;
   };
 } & Omit<BarPropTypes, "style">;

@@ -1,6 +1,6 @@
 import { Octicons } from "@expo/vector-icons";
 import { createElement, FC } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, TextStyle, View, ViewStyle } from "react-native";
 import Animated, { Easing, ZoomIn, ZoomOut } from "react-native-reanimated";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
@@ -128,7 +128,18 @@ export const Checkbox: FC<CheckboxProps> = ({
   );
 };
 
-const useStyles = createStyles(({ colors, fontSizes }) => ({
+type Style = {
+  checkbox: ViewStyle;
+  thumb: ViewStyle;
+  pressedThumb: ViewStyle;
+  checkedThumb: ViewStyle;
+  disabledThumb: ViewStyle;
+  icon: TextStyle;
+  label: TextStyle;
+  disabledLabel: TextStyle;
+};
+
+const useStyles = createStyles<Style>(({ colors, fontSizes }) => ({
   checkbox: {
     flexDirection: "row",
     alignItems: "center",

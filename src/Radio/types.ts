@@ -48,4 +48,4 @@ export type RadioOptionProps = {
     __label?: RadioLabelProps;
     __thumb?: RadioThumbProps;
   };
-} & Omit<PressableProps, "disabled">;
+} & Omit<PressableProps, "disabled" | "style">;

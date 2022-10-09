@@ -1,6 +1,6 @@
 import { Picker } from "@react-native-picker/picker";
 import { FC, useRef, useState } from "react";
-import { Platform, Pressable, View } from "react-native";
+import { Platform, Pressable, TextStyle, View, ViewStyle } from "react-native";
 import { Modal } from "../Modal/Modal";
 import { TextInput } from "../TextInput/TextInput";
 import { SelectProps } from "./types";
@@ -135,7 +135,17 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
 
 Select.Item = Picker.Item;
 
-const useStyles = createStyles(({ colors }) => ({
+type Style = {
+  modal: ViewStyle;
+  modalContent: ViewStyle;
+  iosPicker: TextStyle;
+  picker: TextStyle;
+  doneButton: ViewStyle;
+  pressedDoneButton: ViewStyle;
+  doneButtonTitle: TextStyle;
+};
+
+const useStyles = createStyles<Style>(({ colors }) => ({
   modal: {
     padding: 0,
     width: "100%",

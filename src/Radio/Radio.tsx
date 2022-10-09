@@ -1,6 +1,13 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { createElement, FC, ReactElement } from "react";
-import { GestureResponderEvent, Pressable, Text, View } from "react-native";
+import {
+  GestureResponderEvent,
+  Pressable,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native";
 import Animated, { Easing, ZoomIn, ZoomOut } from "react-native-reanimated";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
@@ -160,7 +167,17 @@ const Option: FC<RadioOptionProps> = ({
 
 Radio.Option = Option;
 
-const useStyles = createStyles(({ colors, fontSizes, fn }) => ({
+type Style = {
+  option: ViewStyle;
+  thumb: ViewStyle;
+  pressedThumb: ViewStyle;
+  disabledThumb: ViewStyle;
+  icon: TextStyle;
+  label: TextStyle;
+  disabledLabel: TextStyle;
+};
+
+const useStyles = createStyles<Style>(({ colors, fontSizes, fn }) => ({
   option: {
     flexDirection: "row",
     alignItems: "center",

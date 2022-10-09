@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { View } from "react-native";
+import { View, ViewStyle } from "react-native";
 import RNModal from "react-native-modal";
 import {
   heightPercentageToDP as hp,
@@ -16,7 +16,14 @@ import {
 
 export const Modal: FC<ModalProps> & { Header: typeof Header } & {
   Content: typeof Content;
-} & { Actions: typeof Actions } = ({ style, children, ...props }) => {
+} & { Actions: typeof Actions } = ({
+  style,
+  children,
+  coverScreen = false,
+  backdropOpacity = 0.4,
+  useNativeDriverForBackdrop = true,
+  ...props
+}) => {
   const { components } = useTheme();
   const theme = components.Modal;
 
@@ -24,10 +31,10 @@ export const Modal: FC<ModalProps> & { Header: typeof Header } & {
 
   return (
     <RNModal
-      useNativeDriverForBackdrop
-      coverScreen={false}
-      backdropOpacity={0.4}
       {...props}
+      useNativeDriverForBackdrop={useNativeDriverForBackdrop}
+      coverScreen={coverScreen}
+      backdropOpacity={backdropOpacity}
       style={[defaultStyles.modal, theme?.style, style]}
     >
       {children}
@@ -78,7 +85,14 @@ Modal.Header = Header;
 Modal.Content = Content;
 Modal.Actions = Actions;
 
-const useStyles = createStyles(({ colors }) => ({
+type Style = {
+  modal: ViewStyle;
+  modalHeader: ViewStyle;
+  modalContent: ViewStyle;
+  modalActions: ViewStyle;
+};
+
+const useStyles = createStyles<Style>(({ colors }) => ({
   modal: {
     padding: wp("4%"),
     alignSelf: "center",

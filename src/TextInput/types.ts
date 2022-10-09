@@ -1,18 +1,25 @@
-import { TextInputProps as RNTextInputProps } from "react-native";
+import {
+  ColorValue,
+  StyleProp,
+  TextInputProps as RNTextInputProps,
+  TextStyle,
+} from "react-native";
+
+export type TextInputStyle = TextStyle & {
+  placeholderColor?: ColorValue;
+};
 
 export type TextInputProps = {
   isDisabled?: boolean;
   isReadOnly?: boolean;
+  style?: StyleProp<TextInputStyle>;
   _disabled?: {
-    style?: RNTextInputProps["style"];
-    placeholderTextColor?: string;
+    style?: StyleProp<TextInputStyle>;
   };
   _readOnly?: {
-    style?: RNTextInputProps["style"];
-    placeholderTextColor?: string;
+    style?: StyleProp<TextInputStyle>;
   };
   _focused?: {
-    style?: RNTextInputProps["style"];
-    placeholderTextColor?: string;
+    style?: StyleProp<TextInputStyle>;
   };
-} & Omit<RNTextInputProps, "editable">;
+} & Omit<RNTextInputProps, "editable" | "style">;

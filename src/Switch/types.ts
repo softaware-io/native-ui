@@ -42,4 +42,4 @@ export type SwitchProps = {
     __thumb?: SwitchThumbProps;
     __track?: SwitchTrackProps;
   };
-} & Omit<PressableProps, "disabled">;
+} & Omit<PressableProps, "disabled" | "style">;

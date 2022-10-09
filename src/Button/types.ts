@@ -44,4 +44,4 @@ export type ButtonProps = {
     __leftIcon?: ButtonIconProps;
     __rightIcon?: ButtonIconProps;
   };
-} & Omit<PressableProps, "disabled">;
+} & Omit<PressableProps, "disabled" | "style">;
