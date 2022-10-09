@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/softaware-io/native-ui/compare/v0.5.0...v0.6.0) (2022-10-09)
+
+
+### Features
+
+* adapt new createStyles, fix style types on components, add TextInput placeholderColor to stylesheet ([b3caacb](https://github.com/softaware-io/native-ui/commit/b3caacbf9207803f18e0728afc11f8df5c6f8c83))
+* include ProgressBar style props into the stylesheet, add Radio and Checkbox animations on toggle ([074f9d3](https://github.com/softaware-io/native-ui/commit/074f9d3c1dd89293420de14848133eee7361839a))
+
 ## [0.5.0](https://github.com/softaware-io/native-ui/compare/v0.4.0...v0.5.0) (2022-09-04)
 
 
