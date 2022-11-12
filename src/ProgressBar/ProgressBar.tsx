@@ -1,5 +1,5 @@
+import merge from "lodash.merge";
 import { FC } from "react";
-import { StyleSheet } from "react-native";
 import { Bar } from "react-native-progress";
 import {
   heightPercentageToDP as hp,
@@ -10,41 +10,30 @@ import { useTheme } from "../utils/useTheme";
 import { ProgressBarProps, ProgressBarStyle } from "./types";
 
 export const ProgressBar: FC<ProgressBarProps> = ({
-  style,
-  indeterminateAnimationDuration,
-  animationConfig,
-  animationType,
   isDisabled = false,
-  useNativeDriver = true,
-  _disabled,
   ...props
 }) => {
   const { components } = useTheme();
-  const theme = components.ProgressBar;
-
   const defaultStyles = useStyles();
 
-  const {
-    color: defaultColor,
-    borderColor: defaultBorderColor,
-    unfilledColor: defaultUnfilledColor,
-    borderWidth: defaultBorderWidth,
-    borderRadius: defaultBorderRadius,
-    width: defaultWidth,
-    height: defaultHeight,
-    ...defaultStylesBar
-  } = defaultStyles.bar;
+  const defualtProps = {
+    useNativeDriver: true,
+    style: defaultStyles.bar,
+    _disabled: {
+      style: defaultStyles.disabledBar,
+    },
+  };
 
-  const {
-    color: themeColor,
-    borderColor: themeBorderColor,
-    unfilledColor: themeUnfilledColor,
-    borderWidth: themeBorderWidth,
-    borderRadius: themeBorderRadius,
-    width: themeWidth,
-    height: themeHeight,
-    ...themeStylesBar
-  } = StyleSheet.flatten(theme?.style) || {};
+  const { _disabled, ...remainingProps } = merge(
+    defualtProps,
+    components.ProgressBar,
+    props
+  );
+
+  const { style, ...mergedProps } = merge(
+    remainingProps,
+    isDisabled ? _disabled : undefined
+  );
 
   const {
     color,
@@ -54,116 +43,21 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     borderRadius,
     width,
     height,
-    ...stylesBar
-  } = StyleSheet.flatten(style) || {};
-
-  const {
-    color: defaultDisabledColor,
-    borderColor: defaultDisabledBorderColor,
-    unfilledColor: defaultDisabledUnfilledColor,
-    borderWidth: defaultDisabledBorderWidth,
-    borderRadius: defaultDisabledBorderRadius,
-    width: defaultDisabledWidth,
-    height: defaultDisabledHeight,
-    ...defaultStylesDisabledBar
-  } = defaultStyles.disabledBar || {};
-
-  const {
-    color: themeDisabledColor,
-    borderColor: themeDisabledBorderColor,
-    unfilledColor: themeDisabledUnfilledColor,
-    borderWidth: themeDisabledBorderWidth,
-    borderRadius: themeDisabledBorderRadius,
-    width: themeDisabledWidth,
-    height: themeDisabledHeight,
-    ...themeStylesDisabledBar
-  } = StyleSheet.flatten(theme?._disabled?.style) || {};
-
-  const {
-    color: disabledColor,
-    borderColor: disabledBorderColor,
-    unfilledColor: disabledUnfilledColor,
-    borderWidth: disabledBorderWidth,
-    borderRadius: disabledBorderRadius,
-    width: disabledWidth,
-    height: disabledHeight,
-    ...stylesDisabledBar
-  } = StyleSheet.flatten(_disabled?.style) || {};
+    ...remainingStyle
+  } = style as ProgressBarStyle;
 
   return (
     <Bar
-      {...props}
-      width={
-        (isDisabled && disabledWidth) ||
-        (isDisabled && themeDisabledWidth) ||
-        (isDisabled && defaultDisabledWidth) ||
-        width ||
-        themeWidth ||
-        defaultWidth
-      }
-      height={
-        (isDisabled && disabledHeight) ||
-        (isDisabled && themeDisabledHeight) ||
-        (isDisabled && defaultDisabledHeight) ||
-        height ||
-        themeHeight ||
-        defaultHeight
-      }
-      indeterminateAnimationDuration={
-        indeterminateAnimationDuration || theme?.indeterminateAnimationDuration
-      }
+      {...mergedProps}
+      width={width}
+      height={height}
       pointerEvents={isDisabled ? "none" : "auto"}
-      color={
-        (isDisabled && disabledColor) ||
-        (isDisabled && themeDisabledColor) ||
-        (isDisabled && defaultDisabledColor) ||
-        color ||
-        themeColor ||
-        defaultColor
-      }
-      unfilledColor={
-        (isDisabled && disabledUnfilledColor) ||
-        (isDisabled && themeDisabledUnfilledColor) ||
-        (isDisabled && defaultDisabledUnfilledColor) ||
-        unfilledColor ||
-        themeUnfilledColor ||
-        defaultUnfilledColor
-      }
-      borderWidth={
-        (isDisabled && disabledBorderWidth) ||
-        (isDisabled && themeDisabledBorderWidth) ||
-        (isDisabled && defaultDisabledBorderWidth) ||
-        borderWidth ||
-        themeBorderWidth ||
-        defaultBorderWidth
-      }
-      borderColor={
-        (isDisabled && disabledBorderColor) ||
-        (isDisabled && themeDisabledBorderColor) ||
-        (isDisabled && defaultDisabledBorderColor) ||
-        borderColor ||
-        themeBorderColor ||
-        defaultBorderColor
-      }
-      borderRadius={
-        (isDisabled && disabledBorderRadius) ||
-        (isDisabled && themeDisabledBorderRadius) ||
-        (isDisabled && defaultDisabledBorderRadius) ||
-        borderRadius ||
-        themeBorderRadius ||
-        defaultBorderRadius
-      }
-      animationConfig={animationConfig || theme?.animationConfig}
-      animationType={animationType || theme?.animationType}
-      useNativeDriver={useNativeDriver}
-      style={[
-        defaultStylesBar,
-        themeStylesBar,
-        stylesBar,
-        isDisabled && defaultStylesDisabledBar,
-        isDisabled && themeStylesDisabledBar,
-        isDisabled && stylesDisabledBar,
-      ]}
+      color={color}
+      unfilledColor={unfilledColor}
+      borderWidth={borderWidth}
+      borderColor={borderColor}
+      borderRadius={borderRadius}
+      style={remainingStyle}
     />
   );
 };
@@ -188,9 +82,5 @@ const useStyles = createStyles<Style>(({ colors }) => ({
     color: colors.gray[400],
     borderColor: colors.gray[600],
     unfilledColor: colors.gray[200],
-    borderWidth: undefined,
-    borderRadius: undefined,
-    width: undefined,
-    height: undefined,
   },
 }));

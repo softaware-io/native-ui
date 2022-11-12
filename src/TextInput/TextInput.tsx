@@ -1,5 +1,6 @@
+import merge from "lodash.merge";
 import { FC, useState } from "react";
-import { TextInput as RNTextInput, StyleSheet } from "react-native";
+import { TextInput as RNTextInput } from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -9,82 +10,43 @@ import { useTheme } from "../utils/useTheme";
 import { TextInputProps, TextInputStyle } from "./types";
 
 export const TextInput: FC<TextInputProps> = ({
-  style,
   isDisabled = false,
   isReadOnly = false,
-  _disabled,
-  _readOnly,
-  _focused,
-  onFocus,
-  onBlur,
   ...props
 }) => {
   const { components } = useTheme();
-  const theme = components.TextInput;
-
   const defaultStyles = useStyles();
-
   const [isFocused, setIsFocused] = useState(false);
 
-  const {
-    placeholderColor: defaultPlaceholderColor,
-    ...defaultStylesTextInput
-  } = defaultStyles.textInput;
+  const defualtProps = {
+    style: defaultStyles.textInput,
+    _focused: {
+      style: defaultStyles.focusedTextInput,
+    },
+    _disabled: {
+      style: defaultStyles.disabledTextInput,
+    },
+  };
 
-  const { placeholderColor: themePlaceholderColor, ...themeStylesTextInput } =
-    StyleSheet.flatten(theme?.style) || {};
+  const { _disabled, _focused, _readOnly, ...remainingProps } = merge(
+    defualtProps,
+    components.TextInput,
+    props
+  );
 
-  const { placeholderColor, ...stylesTextInput } =
-    StyleSheet.flatten(style) || {};
+  const mergedProps = merge(
+    remainingProps,
+    isFocused ? _focused : undefined,
+    isReadOnly ? _readOnly : undefined,
+    isDisabled ? _disabled : undefined
+  );
 
-  const {
-    placeholderColor: defaultDisabledPlaceholderColor,
-    ...defaultStylesDisabledTextInput
-  } = defaultStyles.disabledTextInput || {};
-
-  const {
-    placeholderColor: themeDisabledPlaceholderColor,
-    ...themeStylesDisabledTextInput
-  } = StyleSheet.flatten(theme?._disabled?.style) || {};
-
-  const {
-    placeholderColor: disabledPlaceholderColor,
-    ...stylesDisabledTextInput
-  } = StyleSheet.flatten(_disabled?.style) || {};
-
-  const {
-    placeholderColor: defaultFocusedPlaceholderColor,
-    ...defaultStylesFocusedTextInput
-  } = defaultStyles.focusedTextInput || {};
-
-  const {
-    placeholderColor: themeFocusedPlaceholderColor,
-    ...themeStylesFocusedTextInput
-  } = StyleSheet.flatten(theme?._focused?.style) || {};
-
-  const {
-    placeholderColor: focusedPlaceholderColor,
-    ...stylesFocusedTextInput
-  } = StyleSheet.flatten(_focused?.style) || {};
-
-  const {
-    placeholderColor: defaultReadOnlyPlaceholderColor,
-    ...defaultStylesReadOnlyTextInput
-  } = defaultStyles.readOnlyTextInput || {};
-
-  const {
-    placeholderColor: themeReadOnlyPlaceholderColor,
-    ...themeStylesReadOnlyTextInput
-  } = StyleSheet.flatten(theme?._readOnly?.style) || {};
-
-  const {
-    placeholderColor: readOnlyPlaceholderColor,
-    ...stylesReadOnlyTextInput
-  } = StyleSheet.flatten(_readOnly?.style) || {};
+  const { onFocus, onBlur, style, ...containerProps } = mergedProps;
+  const { placeholderColor, ...remainingStyle } = style as TextInputStyle;
 
   return (
     <RNTextInput
-      {...props}
+      {...containerProps}
       onFocus={(e) => {
         setIsFocused(true);
         onFocus?.(e);
@@ -94,34 +56,8 @@ export const TextInput: FC<TextInputProps> = ({
         onBlur?.(e);
       }}
       editable={!isDisabled && !isReadOnly}
-      placeholderTextColor={
-        (isReadOnly && readOnlyPlaceholderColor) ||
-        (isReadOnly && themeReadOnlyPlaceholderColor) ||
-        (isReadOnly && defaultReadOnlyPlaceholderColor) ||
-        (isDisabled && disabledPlaceholderColor) ||
-        (isDisabled && themeDisabledPlaceholderColor) ||
-        (isDisabled && defaultDisabledPlaceholderColor) ||
-        (isFocused && focusedPlaceholderColor) ||
-        (isFocused && themeFocusedPlaceholderColor) ||
-        (isFocused && defaultFocusedPlaceholderColor) ||
-        placeholderColor ||
-        themePlaceholderColor ||
-        defaultPlaceholderColor
-      }
-      style={[
-        defaultStylesTextInput,
-        themeStylesTextInput,
-        stylesTextInput,
-        isFocused && defaultStylesFocusedTextInput,
-        isFocused && themeStylesFocusedTextInput,
-        isFocused && stylesFocusedTextInput,
-        isDisabled && defaultStylesDisabledTextInput,
-        isDisabled && themeStylesDisabledTextInput,
-        isDisabled && stylesDisabledTextInput,
-        isReadOnly && defaultStylesReadOnlyTextInput,
-        isReadOnly && themeStylesReadOnlyTextInput,
-        isReadOnly && stylesReadOnlyTextInput,
-      ]}
+      placeholderTextColor={placeholderColor}
+      style={remainingStyle}
     />
   );
 };
@@ -130,7 +66,6 @@ type Style = {
   textInput: TextInputStyle;
   disabledTextInput: TextInputStyle;
   focusedTextInput: TextInputStyle;
-  readOnlyTextInput: TextInputStyle;
 };
 
 const useStyles = createStyles<Style>(({ colors, fontSizes }) => ({
@@ -143,10 +78,8 @@ const useStyles = createStyles<Style>(({ colors, fontSizes }) => ({
     color: colors.black,
     placeholderColor: colors.gray[400],
   },
-  disabledTextInput: { opacity: 0.5, placeholderColor: undefined },
-  readOnlyTextInput: { placeholderColor: undefined },
+  disabledTextInput: { opacity: 0.5 },
   focusedTextInput: {
     borderColor: colors.primary[300],
-    placeholderColor: undefined,
   },
 }));

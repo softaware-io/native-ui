@@ -1,50 +1,66 @@
 import { Picker } from "@react-native-picker/picker";
+import merge from "lodash.merge";
 import { FC, useRef, useState } from "react";
 import { Platform, Pressable, TextStyle, View, ViewStyle } from "react-native";
-import { Modal } from "../Modal/Modal";
-import { TextInput } from "../TextInput/TextInput";
-import { SelectProps } from "./types";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Button } from "../Button/Button";
-import { useTheme } from "../utils/useTheme";
+import { Modal } from "../Modal/Modal";
+import { TextInput } from "../TextInput/TextInput";
 import { createStyles } from "../utils/createStyles";
+import { useTheme } from "../utils/useTheme";
+import { SelectProps } from "./types";
 
 export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
   children,
-  style,
   isDisabled = false,
-  placeholder,
   value,
-  onValueChange,
-  displayValue,
-  _disabled,
-  __textInput,
-  __picker,
-  __modal,
   ...props
 }) => {
   const { components } = useTheme();
-  const theme = components.Select;
-
   const defaultStyles = useStyles();
-
   const [visible, setVisible] = useState(false);
   const pickerRef = useRef<Picker<string>>(null);
 
+  const defualtProps = {
+    __modal: {
+      style: defaultStyles.modal,
+    },
+    __button: {
+      title: "Done",
+      style: defaultStyles.doneButton,
+      __title: {
+        style: defaultStyles.doneButtonTitle,
+      },
+      _pressed: {
+        style: defaultStyles.pressedDoneButton,
+      },
+    },
+  };
+
+  const { _disabled, ...remainingProps } = merge(
+    defualtProps,
+    components.Select,
+    props
+  );
+
+  const {
+    __textInput,
+    __modal,
+    __picker,
+    __button,
+    onValueChange,
+    displayValue,
+    placeholder,
+    ...containerProps
+  } = merge(remainingProps, isDisabled ? _disabled : undefined);
+
+  const { onPress: onButtonPress, ...buttonProps } = __button;
+
   if (Platform.OS === "ios") {
     return (
-      <View
-        {...props}
-        style={[
-          theme?.style,
-          style,
-          isDisabled && theme?._disabled?.style,
-          isDisabled && _disabled?.style,
-        ]}
-      >
+      <View {...containerProps}>
         <Pressable disabled={isDisabled} onPress={() => setVisible(true)}>
           <TextInput
-            {...theme?.__textInput}
             {...__textInput}
             isReadOnly
             pointerEvents="none"
@@ -54,30 +70,23 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
           />
         </Pressable>
         <Modal
-          {...theme?.__modal}
           {...__modal}
           isVisible={visible}
           onBackdropPress={() => setVisible(false)}
           coverScreen
           backdropOpacity={0.2}
-          style={[defaultStyles.modal, theme?.__modal?.style, __modal?.style]}
         >
           <Modal.Header>
             <Button
-              title="Done"
-              onPress={() => setVisible(false)}
-              style={defaultStyles.doneButton}
-              _pressed={{
-                style: defaultStyles.pressedDoneButton,
-              }}
-              __title={{
-                style: defaultStyles.doneButtonTitle,
+              {...buttonProps}
+              onPress={(e) => {
+                setVisible(false);
+                onButtonPress?.(e);
               }}
             />
           </Modal.Header>
           <Modal.Content style={defaultStyles.modalContent}>
             <Picker
-              {...theme?.__picker}
               {...__picker}
               ref={pickerRef}
               prompt={placeholder}
@@ -85,7 +94,7 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
               selectedValue={value}
               onValueChange={(itemValue) => onValueChange(itemValue)}
               enabled={!isDisabled}
-              style={defaultStyles.iosPicker}
+              style={[defaultStyles.iosPicker, __picker?.style]}
             >
               {children}
             </Picker>
@@ -96,18 +105,9 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
   }
 
   return (
-    <View
-      {...props}
-      style={[
-        theme?.style,
-        style,
-        isDisabled && theme?._disabled?.style,
-        isDisabled && _disabled?.style,
-      ]}
-    >
+    <View {...containerProps}>
       <Pressable onPress={() => pickerRef?.current?.focus()}>
         <TextInput
-          {...theme?.__textInput}
           {...__textInput}
           isReadOnly
           pointerEvents="none"
@@ -117,7 +117,6 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
         />
       </Pressable>
       <Picker
-        {...theme?.__picker}
         {...__picker}
         ref={pickerRef}
         prompt={placeholder}
@@ -125,7 +124,7 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
         selectedValue={value}
         onValueChange={(itemValue) => onValueChange(itemValue)}
         enabled={!isDisabled}
-        style={defaultStyles.picker}
+        style={[defaultStyles.picker, __picker?.style]}
       >
         {children}
       </Picker>

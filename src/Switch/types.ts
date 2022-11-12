@@ -24,22 +24,14 @@ export type SwitchProps = {
   __icon?: SwitchIconProps;
   __thumb?: SwitchThumbProps;
   __track?: SwitchTrackProps;
-  _disabled?: {
-    style?: ViewProps["style"];
-    __icon?: SwitchIconProps;
-    __thumb?: SwitchThumbProps;
-    __track?: SwitchTrackProps;
-  };
-  _pressed?: {
-    style?: ViewProps["style"];
-    __icon?: SwitchIconProps;
-    __thumb?: SwitchThumbProps;
-    __track?: SwitchTrackProps;
-  };
-  _toggled?: {
-    style?: ViewProps["style"];
-    __icon?: SwitchIconProps;
-    __thumb?: SwitchThumbProps;
-    __track?: SwitchTrackProps;
-  };
-} & Omit<PressableProps, "disabled" | "style">;
+  _disabled?: NestedSwitchProps;
+  _pressed?: NestedSwitchProps;
+  _toggled?: NestedSwitchProps;
+} & Omit<PressableProps, "disabled" | "style" | "onPress">;
+
+export type NestedSwitchProps = Partial<
+  Omit<
+    SwitchProps,
+    "isDisabled" | "_disabled" | "isToggled" | "_toggled" | "_pressed"
+  >
+>;

@@ -1,4 +1,5 @@
-import { createElement, FC } from "react";
+import merge from "lodash.merge";
+import { createElement, FC, useState } from "react";
 import {
   ActivityIndicator,
   Pressable,
@@ -15,125 +16,72 @@ import { useTheme } from "../utils/useTheme";
 import { ButtonProps } from "./types";
 
 export const Button: FC<ButtonProps> = ({
-  style,
-  title,
   isDisabled = false,
   isLoading = false,
-  _disabled,
-  _pressed,
-  _loading,
-  __title,
-  __spinner,
-  __leftIcon,
-  __rightIcon,
   ...props
 }) => {
   const { components } = useTheme();
-  const theme = components.Button;
-
   const defaultStyles = useStyles();
+  const [isPressed, setIsPressed] = useState(false);
+
+  const defualtProps = {
+    style: defaultStyles.button,
+    _pressed: {
+      style: defaultStyles.pressedButton,
+    },
+    _loading: {
+      style: defaultStyles.loadingButton,
+    },
+    _disabled: {
+      style: defaultStyles.disabledButton,
+    },
+    __spinner: {
+      style: defaultStyles.spinner,
+    },
+    __leftIcon: {
+      style: defaultStyles.leftIcon,
+    },
+    __rightIcon: {
+      style: defaultStyles.rightIcon,
+    },
+    __title: {
+      style: defaultStyles.title,
+    },
+  };
+
+  const { _disabled, _pressed, _loading, ...remainingProps } = merge(
+    defualtProps,
+    components.Button,
+    props
+  );
+
+  const { title, __title, __spinner, __leftIcon, __rightIcon, ...mergedProps } =
+    merge(
+      remainingProps,
+      isPressed ? _pressed : undefined,
+      isLoading ? _loading : undefined,
+      isDisabled ? _disabled : undefined
+    );
+
+  const { onPressIn, onPressOut, ...containerProps } = mergedProps;
 
   return (
     <Pressable
-      {...props}
-      style={({ pressed: isPressed }) => [
-        defaultStyles.button,
-        theme?.style,
-        style,
-        isPressed && defaultStyles.pressedButton,
-        isPressed && theme?._pressed?.style,
-        isPressed && _pressed?.style,
-        isLoading && defaultStyles.loadingButton,
-        isLoading && theme?._loading?.style,
-        isLoading && _loading?.style,
-        isDisabled && defaultStyles.disabledButton,
-        isDisabled && theme?._disabled?.style,
-        isDisabled && _disabled?.style,
-      ]}
+      {...containerProps}
+      onPressIn={(e) => {
+        setIsPressed(true);
+        onPressIn?.(e);
+      }}
+      onPressOut={(e) => {
+        setIsPressed(false);
+        onPressOut?.(e);
+      }}
       disabled={isDisabled || isLoading}
     >
-      {({ pressed: isPressed }) => (
-        <>
-          {isLoading && (
-            <ActivityIndicator
-              {...theme?.__spinner}
-              {...__spinner}
-              style={[
-                defaultStyles.spinner,
-                theme?.__spinner?.style,
-                __spinner?.style,
-              ]}
-            />
-          )}
-          {!!__leftIcon &&
-            createElement(__leftIcon?.type, {
-              ...theme?.__leftIcon,
-              ...__leftIcon,
-              ...(isPressed && theme?._pressed?.__leftIcon),
-              ...(isLoading && _loading?.__leftIcon),
-              ...(isLoading && theme?._loading?.__leftIcon),
-              ...(isPressed && _pressed?.__leftIcon),
-              ...(isDisabled && theme?._disabled?.__leftIcon),
-              ...(isDisabled && _disabled?.__leftIcon),
-              style: [
-                defaultStyles.leftIcon,
-                theme?.__leftIcon?.style,
-                __leftIcon?.style,
-                isPressed && theme?._pressed?.__leftIcon?.style,
-                isPressed && _pressed?.__leftIcon?.style,
-                isLoading && theme?._loading?.__leftIcon?.style,
-                isLoading && _loading?.__leftIcon?.style,
-                isDisabled && theme?._disabled?.__leftIcon?.style,
-                isDisabled && _disabled?.__leftIcon?.style,
-              ],
-            })}
-          <Text
-            {...theme?.__title}
-            {...__title}
-            {...(isPressed && theme?._pressed?.__title)}
-            {...(isPressed && _pressed?.__title)}
-            {...(isLoading && theme?._loading?.__title)}
-            {...(isLoading && _loading?.__title)}
-            {...(isDisabled && theme?._disabled?.__title)}
-            {...(isDisabled && _disabled?.__title)}
-            style={[
-              defaultStyles.title,
-              theme?.__title?.style,
-              __title?.style,
-              isPressed && theme?._pressed?.__title?.style,
-              isPressed && _pressed?.__title?.style,
-              isLoading && theme?._loading?.__title?.style,
-              isLoading && _loading?.__title?.style,
-              isDisabled && theme?._disabled?.__title?.style,
-              isDisabled && _disabled?.__title?.style,
-            ]}
-          >
-            {!isLoading ? title : _loading?.title}
-          </Text>
-          {!!__rightIcon &&
-            createElement(__rightIcon?.type, {
-              ...theme?.__rightIcon,
-              ...__rightIcon,
-              ...(isPressed && theme?._pressed?.__rightIcon),
-              ...(isLoading && _loading?.__rightIcon),
-              ...(isLoading && theme?._loading?.__rightIcon),
-              ...(isPressed && _pressed?.__rightIcon),
-              ...(isDisabled && theme?._disabled?.__rightIcon),
-              ...(isDisabled && _disabled?.__rightIcon),
-              style: [
-                defaultStyles.rightIcon,
-                theme?.__rightIcon?.style,
-                __rightIcon?.style,
-                isPressed && theme?._pressed?.__rightIcon?.style,
-                isPressed && _pressed?.__rightIcon?.style,
-                isLoading && theme?._loading?.__rightIcon?.style,
-                isLoading && _loading?.__rightIcon?.style,
-                isDisabled && theme?._disabled?.__rightIcon?.style,
-                isDisabled && _disabled?.__rightIcon?.style,
-              ],
-            })}
-        </>
-      )}
+      {isLoading && <ActivityIndicator {...__spinner} />}
+      {!!__leftIcon.type && createElement(__leftIcon?.type, __leftIcon)}
+      <Text {...__title}>{title}</Text>
+      {!!__rightIcon.type && createElement(__rightIcon?.type, __rightIcon)}
     </Pressable>
   );
 };

@@ -1,3 +1,4 @@
+import merge from "lodash.merge";
 import { createElement, FC, useEffect, useState } from "react";
 import { Pressable, TextStyle, View, ViewStyle } from "react-native";
 import Animated, {
@@ -11,26 +12,57 @@ import { useTheme } from "../utils/useTheme";
 import { SwitchProps } from "./types";
 
 export const Switch: FC<SwitchProps> = ({
-  style,
   isDisabled = false,
-  onValueChange,
   isToggled = false,
-  _disabled,
-  _pressed,
-  _toggled,
-  __icon,
-  __thumb,
-  __track,
   ...props
 }) => {
   const { components } = useTheme();
-  const theme = components.Switch;
-
   const defaultStyles = useStyles();
+  const [isPressed, setIsPressed] = useState(false);
+
   const [switchWidth, setSwitchWidth] = useState(0);
   const [thumbWidth, setThumbWidth] = useState(0);
 
   const offset = useSharedValue(0);
+
+  const defualtProps = {
+    style: defaultStyles.switch,
+    __thumb: {
+      style: defaultStyles.thumb,
+    },
+    __icon: {
+      style: defaultStyles.icon,
+      allowFontScaling: false,
+    },
+    __track: {
+      style: defaultStyles.track,
+    },
+    _toggled: {
+      __track: {
+        style: defaultStyles.toggledTrack,
+      },
+    },
+    _disabled: {
+      style: defaultStyles.disabledSwitch,
+    },
+  };
+
+  const { _disabled, _pressed, _toggled, ...remainingProps } = merge(
+    defualtProps,
+    components.Switch,
+    props
+  );
+
+  const { __track, __icon, __thumb, onValueChange, ...mergedProps } = merge(
+    remainingProps,
+    isToggled ? _toggled : undefined,
+    isPressed ? _pressed : undefined,
+    isDisabled ? _disabled : undefined
+  );
+
+  const { onPressIn, onPressOut, onLayout, ...containerProps } = mergedProps;
+
+  const { style: thumbStyle, onLayout: onThumbLayout, ...thumbProps } = __thumb;
 
   const animatedThumbStyles = useAnimatedStyle(() => {
     return {
@@ -53,96 +85,33 @@ export const Switch: FC<SwitchProps> = ({
 
   return (
     <Pressable
-      {...props}
-      onLayout={(e) => setSwitchWidth(e.nativeEvent.layout.width)}
-      style={({ pressed: isPressed }) => [
-        defaultStyles.switch,
-        theme?.style,
-        style,
-        isToggled && theme?._toggled?.style,
-        isToggled && _toggled?.style,
-        isPressed && theme?._pressed?.style,
-        isPressed && _pressed?.style,
-        isDisabled && defaultStyles.disabledSwitch,
-        isDisabled && theme?._disabled?.style,
-        isDisabled && _disabled?.style,
-      ]}
+      {...containerProps}
+      onLayout={(e) => {
+        setSwitchWidth(e.nativeEvent.layout.width);
+        onLayout?.(e);
+      }}
+      onPressIn={(e) => {
+        setIsPressed(true);
+        onPressIn?.(e);
+      }}
+      onPressOut={(e) => {
+        setIsPressed(false);
+        onPressOut?.(e);
+      }}
       onPress={onValueChange}
       disabled={isDisabled}
     >
-      {({ pressed: isPressed }) => (
-        <>
-          <View
-            {...theme?.__track}
-            {...__track}
-            {...(isToggled && theme?._toggled?.__track)}
-            {...(isToggled && _toggled?.__track)}
-            {...(isPressed && theme?._pressed?.__track)}
-            {...(isPressed && _pressed?.__track)}
-            {...(isDisabled && theme?._disabled?.__track)}
-            {...(isDisabled && _disabled?.__track)}
-            style={[
-              defaultStyles.track,
-              theme?.__track?.style,
-              __track?.style,
-              isToggled && defaultStyles.checkedTrack,
-              isToggled && theme?._toggled?.__track?.style,
-              isToggled && _toggled?.__track?.style,
-              isPressed && theme?._pressed?.__track?.style,
-              isPressed && _pressed?.__track?.style,
-              isDisabled && theme?._disabled?.__track?.style,
-              isDisabled && _disabled?.__track?.style,
-            ]}
-          />
-          <Animated.View
-            onLayout={(e) => setThumbWidth(e.nativeEvent.layout.width)}
-            {...theme?.__thumb}
-            {...__thumb}
-            {...(isToggled && theme?._toggled?.__thumb)}
-            {...(isToggled && _toggled?.__thumb)}
-            {...(isPressed && theme?._pressed?.__thumb)}
-            {...(isPressed && _pressed?.__thumb)}
-            {...(isDisabled && theme?._disabled?.__thumb)}
-            {...(isDisabled && _disabled?.__thumb)}
-            style={[
-              animatedThumbStyles,
-              defaultStyles.thumb,
-              theme?.__thumb?.style,
-              __thumb?.style,
-              isToggled && theme?._toggled?.__thumb?.style,
-              isToggled && _toggled?.__thumb?.style,
-              isPressed && theme?._pressed?.__thumb?.style,
-              isPressed && _pressed?.__thumb?.style,
-              isDisabled && theme?._disabled?.__thumb?.style,
-              isDisabled && _disabled?.__thumb?.style,
-            ]}
-          >
-            {__icon &&
-              createElement(__icon?.type, {
-                allowFontScaling: false,
-                ...theme?.__icon,
-                ...__icon,
-                ...(isToggled && theme?._toggled?.__icon),
-                ...(isToggled && _toggled?.__icon),
-                ...(isPressed && theme?._pressed?.__icon),
-                ...(isPressed && _pressed?.__icon),
-                ...(isDisabled && theme?._disabled?.__icon),
-                ...(isDisabled && _disabled?.__icon),
-                style: [
-                  defaultStyles.icon,
-                  theme?.__icon?.style,
-                  __icon?.style,
-                  isToggled && theme?._toggled?.__icon?.style,
-                  isToggled && _toggled?.__icon?.style,
-                  isPressed && theme?._pressed?.__icon?.style,
-                  isPressed && _pressed?.__icon?.style,
-                  isDisabled && theme?._disabled?.__icon?.style,
-                  isDisabled && _disabled?.__icon?.style,
-                ],
-              })}
-          </Animated.View>
-        </>
-      )}
+      <View {...__track} />
+      <Animated.View
+        {...thumbProps}
+        style={[thumbStyle, animatedThumbStyles]}
+        onLayout={(e) => {
+          setThumbWidth(e.nativeEvent.layout.width);
+          onThumbLayout?.(e);
+        }}
+      >
+        {!!__icon?.type && createElement(__icon?.type, __icon)}
+      </Animated.View>
     </Pressable>
   );
 };
@@ -151,7 +120,7 @@ type Style = {
   switch: ViewStyle;
   disabledSwitch: ViewStyle;
   track: ViewStyle;
-  checkedTrack: ViewStyle;
+  toggledTrack: ViewStyle;
   thumb: ViewStyle;
   icon: TextStyle;
 };
@@ -194,7 +163,7 @@ const useStyles = createStyles<Style>(({ colors, fn }) => ({
     backgroundColor: colors.gray[300],
     borderRadius: fn.maxBorderRadius(),
   },
-  checkedTrack: {
+  toggledTrack: {
     backgroundColor: colors.primary[500],
   },
 }));

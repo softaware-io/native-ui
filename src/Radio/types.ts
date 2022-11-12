@@ -20,7 +20,7 @@ export type RadioProps = {
   children: ReactElement<RadioOptionProps> | ReactElement<RadioOptionProps>[];
   onValueChange: (value: any) => void;
   value: any;
-} & ViewProps;
+} & Omit<ViewProps, "children">;
 
 export type RadioOptionProps = {
   value: any;
@@ -31,21 +31,14 @@ export type RadioOptionProps = {
   __label?: RadioLabelProps;
   __thumb?: RadioThumbProps;
   __icon?: RadioIconProps;
-  _disabled?: {
-    style?: ViewProps["style"];
-    __label?: RadioLabelProps;
-    __thumb?: RadioThumbProps;
-    __icon?: RadioIconProps;
-  };
-  _pressed?: {
-    style?: ViewProps["style"];
-    __label?: RadioLabelProps;
-    __thumb?: RadioThumbProps;
-    __icon?: RadioIconProps;
-  };
-  _checked?: {
-    style?: ViewProps["style"];
-    __label?: RadioLabelProps;
-    __thumb?: RadioThumbProps;
-  };
+  _disabled?: NestedRadioOptionProps;
+  _pressed?: NestedRadioOptionProps;
+  _checked?: NestedRadioOptionProps;
 } & Omit<PressableProps, "disabled" | "style">;
+
+export type NestedRadioOptionProps = Partial<
+  Omit<
+    RadioOptionProps,
+    "isDisabled" | "_disabled" | "isChecked" | "_checked" | "_pressed"
+  >
+>;

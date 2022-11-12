@@ -24,21 +24,14 @@ export type CheckboxProps = {
   __label?: CheckboxLabelProps;
   __icon?: CheckboxIconProps;
   __thumb?: CheckboxThumbProps;
-  _disabled?: {
-    style?: ViewProps["style"];
-    __label?: CheckboxLabelProps;
-    __icon?: CheckboxIconProps;
-    __thumb?: CheckboxThumbProps;
-  };
-  _pressed?: {
-    style?: ViewProps["style"];
-    __label?: CheckboxLabelProps;
-    __icon?: CheckboxIconProps;
-    __thumb?: CheckboxThumbProps;
-  };
-  _checked?: {
-    style?: ViewProps["style"];
-    __label?: CheckboxLabelProps;
-    __thumb?: CheckboxThumbProps;
-  };
-} & Omit<PressableProps, "disabled">;
+  _disabled?: NestedCheckboxProps;
+  _pressed?: NestedCheckboxProps;
+  _checked?: NestedCheckboxProps;
+} & Omit<PressableProps, "disabled" | "style" | "onPress">;
+
+export type NestedCheckboxProps = Partial<
+  Omit<
+    CheckboxProps,
+    "isDisabled" | "_disabled" | "isChecked" | "_checked" | "_pressed"
+  >
+>;

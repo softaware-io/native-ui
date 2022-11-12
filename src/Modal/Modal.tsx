@@ -1,3 +1,4 @@
+import merge from "lodash.merge";
 import { FC } from "react";
 import { View, ViewStyle } from "react-native";
 import RNModal from "react-native-modal";
@@ -14,71 +15,63 @@ import {
   ModalProps,
 } from "./types";
 
-export const Modal: FC<ModalProps> & { Header: typeof Header } & {
+export const Modal: FC<ModalProps> & {
+  Header: typeof Header;
   Content: typeof Content;
-} & { Actions: typeof Actions } = ({
-  style,
-  children,
-  coverScreen = false,
-  backdropOpacity = 0.4,
-  useNativeDriverForBackdrop = true,
-  ...props
-}) => {
+  Actions: typeof Actions;
+} = ({ children, ...props }) => {
   const { components } = useTheme();
-  const theme = components.Modal;
-
   const defaultStyles = useStyles();
 
-  return (
-    <RNModal
-      {...props}
-      useNativeDriverForBackdrop={useNativeDriverForBackdrop}
-      coverScreen={coverScreen}
-      backdropOpacity={backdropOpacity}
-      style={[defaultStyles.modal, theme?.style, style]}
-    >
-      {children}
-    </RNModal>
-  );
+  const defualtProps = {
+    coverScreen: false,
+    backdropOpacity: 0.4,
+    useNativeDriverForBackdrop: true,
+    style: defaultStyles.modal,
+  };
+
+  const containerProps = merge(defualtProps, components.Modal, props);
+
+  return <RNModal {...containerProps}>{children}</RNModal>;
 };
 
-const Header: FC<ModalHeaderProps> = ({ style, children, ...props }) => {
+const Header: FC<ModalHeaderProps> = ({ children, ...props }) => {
   const { components } = useTheme();
-  const theme = components.Modal?.Header;
-
   const defaultStyles = useStyles();
 
-  return (
-    <View {...props} style={[defaultStyles.modalHeader, theme?.style, style]}>
-      {children}
-    </View>
-  );
+  const defualtProps = {
+    style: defaultStyles.modalHeader,
+  };
+
+  const containerProps = merge(defualtProps, components.Modal?.Header, props);
+
+  return <View {...containerProps}>{children}</View>;
 };
 
-const Content: FC<ModalContentProps> = ({ style, children, ...props }) => {
+const Content: FC<ModalContentProps> = ({ children, ...props }) => {
   const { components } = useTheme();
-  const theme = components.Modal?.Content;
-
   const defaultStyles = useStyles();
 
-  return (
-    <View {...props} style={[defaultStyles.modalContent, theme?.style, style]}>
-      {children}
-    </View>
-  );
+  const defualtProps = {
+    style: defaultStyles.modalContent,
+  };
+
+  const containerProps = merge(defualtProps, components.Modal?.Content, props);
+
+  return <View {...containerProps}>{children}</View>;
 };
 
-const Actions: FC<ModalActionsProps> = ({ style, children, ...props }) => {
+const Actions: FC<ModalActionsProps> = ({ children, ...props }) => {
   const { components } = useTheme();
-  const theme = components.Modal?.Actions;
-
   const defaultStyles = useStyles();
 
-  return (
-    <View {...props} style={[defaultStyles.modalActions, theme?.style, style]}>
-      {children}
-    </View>
-  );
+  const defualtProps = {
+    style: defaultStyles.modalActions,
+  };
+
+  const containerProps = merge(defualtProps, components.Modal?.Actions, props);
+
+  return <View {...containerProps}>{children}</View>;
 };
 
 Modal.Header = Header;

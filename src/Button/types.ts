@@ -25,23 +25,14 @@ export type ButtonProps = {
   __spinner?: ButtonSpinnerProps;
   __leftIcon?: ButtonIconProps;
   __rightIcon?: ButtonIconProps;
-  _pressed?: {
-    style?: ViewProps["style"];
-    __title?: ButtonTitleProps;
-    __leftIcon?: ButtonIconProps;
-    __rightIcon?: ButtonIconProps;
-  };
-  _disabled?: {
-    style?: ViewProps["style"];
-    __title?: ButtonTitleProps;
-    __leftIcon?: ButtonIconProps;
-    __rightIcon?: ButtonIconProps;
-  };
-  _loading?: {
-    title?: string;
-    style?: ViewProps["style"];
-    __title?: ButtonTitleProps;
-    __leftIcon?: ButtonIconProps;
-    __rightIcon?: ButtonIconProps;
-  };
+  _pressed?: NestedButtonProps;
+  _disabled?: NestedButtonProps;
+  _loading?: NestedButtonProps;
 } & Omit<PressableProps, "disabled" | "style">;
+
+export type NestedButtonProps = Partial<
+  Omit<
+    ButtonProps,
+    "isDisabled" | "_disabled" | "isLoading" | "_loading" | "_pressed"
+  >
+>;

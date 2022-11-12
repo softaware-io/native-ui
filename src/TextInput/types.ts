@@ -6,20 +6,21 @@ import {
 } from "react-native";
 
 export type TextInputStyle = TextStyle & {
-  placeholderColor?: ColorValue;
+  placeholderColor?: string | ColorValue;
 };
 
 export type TextInputProps = {
   isDisabled?: boolean;
   isReadOnly?: boolean;
   style?: StyleProp<TextInputStyle>;
-  _disabled?: {
-    style?: StyleProp<TextInputStyle>;
-  };
-  _readOnly?: {
-    style?: StyleProp<TextInputStyle>;
-  };
-  _focused?: {
-    style?: StyleProp<TextInputStyle>;
-  };
-} & Omit<RNTextInputProps, "editable" | "style">;
+  _disabled?: NestedTextInputProps;
+  _readOnly?: NestedTextInputProps;
+  _focused?: NestedTextInputProps;
+} & Omit<RNTextInputProps, "editable" | "style" | "placeholderTextColor">;
+
+export type NestedTextInputProps = Partial<
+  Omit<
+    TextInputProps,
+    "isDisabled" | "_disabled" | "isReadOnly" | "_readOnly" | "_focused"
+  >
+>;

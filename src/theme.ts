@@ -1,47 +1,21 @@
-import { EasingFunction, PixelRatio } from "react-native";
-import { ModalProps } from "react-native-modal";
-import { EasingFunctionFactory } from "react-native-reanimated";
+import { PixelRatio } from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
-import {
-  ButtonIconProps,
-  ButtonProps,
-  ButtonSpinnerProps,
-  ButtonTitleProps,
-} from "./Button/types";
-import {
-  CheckboxIconProps,
-  CheckboxLabelProps,
-  CheckboxProps,
-  CheckboxThumbProps,
-} from "./Checkbox/types";
+import { ButtonProps } from "./Button/types";
+import { CheckboxProps } from "./Checkbox/types";
 import {
   ModalActionsProps,
   ModalContentProps,
   ModalHeaderProps,
+  ModalProps,
 } from "./Modal/types";
 import { ProgressBarProps } from "./ProgressBar/types";
-import {
-  RadioIconProps,
-  RadioLabelProps,
-  RadioProps,
-  RadioThumbProps,
-} from "./Radio/types";
-import {
-  SelectModalProps,
-  SelectPickerProps,
-  SelectProps,
-  SelectTextInputProps,
-} from "./Select/types";
+import { RadioOptionProps, RadioProps } from "./Radio/types";
+import { SelectProps } from "./Select/types";
 import { SkeletonProps } from "./Skeleton/types";
-import {
-  SwitchIconProps,
-  SwitchProps,
-  SwitchThumbProps,
-  SwitchTrackProps,
-} from "./Switch/types";
+import { SwitchProps } from "./Switch/types";
 import { TextInputProps } from "./TextInput/types";
 
 type ColorShades = {
@@ -99,153 +73,30 @@ export type DefaultFunctions = {
 };
 
 export type ComponentOverrides = {
-  Button?: {
-    style?: ButtonProps["style"];
-    __title?: ButtonTitleProps;
-    __spinner?: ButtonSpinnerProps;
-    __leftIcon?: ButtonIconProps;
-    __rightIcon?: ButtonIconProps;
-    _pressed?: {
-      style?: ButtonProps["style"];
-      __title?: ButtonTitleProps;
-      __leftIcon?: ButtonIconProps;
-      __rightIcon?: ButtonIconProps;
-    };
-    _disabled?: {
-      style?: ButtonProps["style"];
-      __title?: ButtonTitleProps;
-      __leftIcon?: ButtonIconProps;
-      __rightIcon?: ButtonIconProps;
-    };
-    _loading?: {
-      style?: ButtonProps["style"];
-      __title?: ButtonTitleProps;
-      __leftIcon?: ButtonIconProps;
-      __rightIcon?: ButtonIconProps;
-    };
+  Button?: Partial<Omit<ButtonProps, "isDisabled" | "isLoading">>;
+  Modal?: Partial<ModalProps> & {
+    Header?: Partial<ModalHeaderProps>;
+    Content?: Partial<ModalContentProps>;
+    Actions?: Partial<ModalActionsProps>;
   };
-  Modal?: {
-    style?: ModalProps["style"];
-    Header?: {
-      style?: ModalHeaderProps["style"];
-    };
-    Content?: {
-      style?: ModalContentProps["style"];
-    };
-    Actions?: {
-      style?: ModalActionsProps["style"];
-    };
+  TextInput?: Partial<Omit<TextInputProps, "isDisabled" | "isReadOnly">>;
+  Select?: Partial<Omit<SelectProps, "isDisabled" | "value" | "onValueChange">>;
+  Skeleton?: Partial<SkeletonProps>;
+  ProgressBar?: Partial<Omit<ProgressBarProps, "isDisabled">>;
+  Checkbox?: Partial<
+    Omit<CheckboxProps, "isDisabled" | "isChecked | onValueChange">
+  >;
+  Radio?: Partial<Omit<RadioProps, "children" | "value | onValueChange">> & {
+    Option?: Partial<
+      Omit<
+        RadioOptionProps,
+        "isDisabled" | "isChecked" | "value" | "onValueChange"
+      >
+    >;
   };
-  TextInput?: {
-    style?: TextInputProps["style"];
-    _disabled?: {
-      style?: TextInputProps["style"];
-    };
-    _readOnly?: {
-      style?: TextInputProps["style"];
-    };
-    _focused?: {
-      style?: TextInputProps["style"];
-    };
-  };
-  Select?: {
-    style?: SelectProps["style"];
-    __textInput?: SelectTextInputProps;
-    __picker?: SelectPickerProps;
-    __modal?: SelectModalProps;
-    _disabled?: {
-      style?: SelectProps["style"];
-    };
-  };
-  Skeleton?: {
-    style?: SkeletonProps["style"];
-    fromColor?: string;
-    toColor?: string;
-    duration?: number;
-    easing?: EasingFunction | EasingFunctionFactory;
-  };
-  ProgressBar?: {
-    style?: ProgressBarProps["style"];
-    indeterminateAnimationDuration?: number;
-    animationConfig?: object;
-    animationType?: "decay" | "timing" | "spring";
-    _disabled?: {
-      style?: ProgressBarProps["style"];
-    };
-  };
-  Checkbox?: {
-    style?: CheckboxProps["style"];
-    __label?: CheckboxLabelProps;
-    __icon?: CheckboxIconProps;
-    __thumb?: CheckboxThumbProps;
-    _disabled?: {
-      style?: CheckboxProps["style"];
-      __label?: CheckboxLabelProps;
-      __icon?: CheckboxIconProps;
-      __thumb?: CheckboxThumbProps;
-    };
-    _pressed?: {
-      style?: CheckboxProps["style"];
-      __label?: CheckboxLabelProps;
-      __icon?: CheckboxIconProps;
-      __thumb?: CheckboxThumbProps;
-    };
-    _checked?: {
-      style?: CheckboxProps["style"];
-      __label?: CheckboxLabelProps;
-      __thumb?: CheckboxThumbProps;
-    };
-  };
-  Radio?: {
-    style?: RadioProps["style"];
-    Option?: {
-      style?: RadioProps["style"];
-      __label?: RadioLabelProps;
-      __icon?: RadioIconProps;
-      __thumb?: RadioThumbProps;
-      _disabled?: {
-        style?: RadioProps["style"];
-        __label?: RadioLabelProps;
-        __icon?: RadioIconProps;
-        __thumb?: RadioThumbProps;
-      };
-      _pressed?: {
-        style?: RadioProps["style"];
-        __label?: RadioLabelProps;
-        __icon?: RadioIconProps;
-        __thumb?: RadioThumbProps;
-      };
-      _checked?: {
-        style?: RadioProps["style"];
-        __label?: RadioLabelProps;
-        __thumb?: RadioThumbProps;
-      };
-    };
-  };
-  Switch?: {
-    style?: SwitchProps["style"];
-    __icon?: SwitchIconProps;
-    __thumb?: SwitchThumbProps;
-    __track?: SwitchTrackProps;
-    _disabled?: {
-      style?: SwitchProps["style"];
-      __icon?: SwitchIconProps;
-      __thumb?: SwitchThumbProps;
-      __track?: SwitchTrackProps;
-    };
-    _pressed?: {
-      style?: SwitchProps["style"];
-      __icon?: SwitchIconProps;
-      __thumb?: SwitchThumbProps;
-      __track?: SwitchTrackProps;
-    };
-    _toggled?: {
-      style?: SwitchProps["style"];
-      __thumb?: SwitchThumbProps;
-      __track?: SwitchTrackProps;
-      __icon?: SwitchIconProps;
-    };
-  };
+  Switch?: Partial<
+    Omit<SwitchProps, "isDisabled" | "isChecked | onValueChange">
+  >;
 };
 
 //@ts-ignore

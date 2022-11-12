@@ -15,7 +15,19 @@ export type ProgressBarStyle = Omit<
 export type ProgressBarProps = {
   isDisabled?: boolean;
   style?: StyleProp<ProgressBarStyle>;
-  _disabled?: {
-    style?: StyleProp<ProgressBarStyle>;
-  };
-} & Omit<BarPropTypes, "style">;
+  _disabled?: NestedProgressBarProps;
+} & Omit<
+  BarPropTypes,
+  | "style"
+  | "unfilledColor"
+  | "borderWidth"
+  | "borderColor"
+  | "width"
+  | "height"
+  | "color"
+  | "borderRadius"
+>;
+
+export type NestedProgressBarProps = Partial<
+  Omit<ProgressBarProps, "isDisabled" | "_disabled">
+>;
