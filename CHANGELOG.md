@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/softaware-io/native-ui/compare/v0.6.0...v0.7.0) (2022-11-12)
+
+
+### Features
+
+* update all components to the new prop merge strategy ([e2d2bca](https://github.com/softaware-io/native-ui/commit/e2d2bca4a78299cf4fc443fd10105a18026c29bd))
+
 ## [0.6.0](https://github.com/softaware-io/native-ui/compare/v0.5.0...v0.6.0) (2022-10-09)
 
 
