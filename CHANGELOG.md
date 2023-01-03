@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/softaware-io/native-ui/compare/v0.7.0...v0.8.0) (2023-01-03)
+
+
+### Bug Fixes
+
+* fix react and lodash dependencies ([675b97e](https://github.com/softaware-io/native-ui/commit/675b97e744cdf5da1c5176820a9c7f1b28e0d6e7))
+
 ## [0.7.0](https://github.com/softaware-io/native-ui/compare/v0.6.0...v0.7.0) (2022-11-12)
 
 
