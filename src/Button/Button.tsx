@@ -13,7 +13,7 @@ import {
 import { createStyles } from "../utils/createStyles";
 import { useTheme } from "../utils/useTheme";
 import { ButtonProps } from "./types";
-import { merge } from "../utils/merge";
+import { mergeProps } from "../utils/mergeProps";
 
 export const Button: FC<ButtonProps> = ({
   isDisabled = false,
@@ -49,14 +49,14 @@ export const Button: FC<ButtonProps> = ({
     },
   };
 
-  const { _disabled, _pressed, _loading, ...remainingProps } = merge(
+  const { _disabled, _pressed, _loading, ...remainingProps } = mergeProps(
     defaultProps,
     components.Button,
     props
   );
 
   const { title, __title, __spinner, __leftIcon, __rightIcon, ...mergedProps } =
-    merge(
+    mergeProps(
       remainingProps,
       isPressed ? _pressed : undefined,
       isLoading ? _loading : undefined,

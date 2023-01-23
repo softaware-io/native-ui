@@ -6,7 +6,7 @@ import Animated, {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
-import { merge } from "../utils/merge";
+import { mergeProps } from "../utils/mergeProps";
 import { useTheme } from "../utils/useTheme";
 import { SkeletonProps, SkeletonStyle } from "./types";
 
@@ -22,7 +22,7 @@ export const Skeleton: FC<SkeletonProps> = ({ ...props }) => {
     },
   };
 
-  const { duration, easing, style, ...containerProps } = merge(
+  const { duration, easing, style, ...containerProps } = mergeProps(
     defualtProps,
     components.Skeleton,
     props

@@ -6,7 +6,7 @@ import { Button } from "../Button/Button";
 import { Modal } from "../Modal/Modal";
 import { TextInput } from "../TextInput/TextInput";
 import { createStyles } from "../utils/createStyles";
-import { merge } from "../utils/merge";
+import { mergeProps } from "../utils/mergeProps";
 import { useTheme } from "../utils/useTheme";
 import { SelectProps } from "./types";
 
@@ -37,7 +37,7 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
     },
   };
 
-  const { _disabled, ...remainingProps } = merge(
+  const { _disabled, ...remainingProps } = mergeProps(
     defualtProps,
     components.Select,
     props
@@ -52,7 +52,7 @@ export const Select: FC<SelectProps> & { Item: typeof Picker.Item } = ({
     displayValue,
     placeholder,
     ...containerProps
-  } = merge(remainingProps, isDisabled ? _disabled : undefined);
+  } = mergeProps(remainingProps, isDisabled ? _disabled : undefined);
 
   const { onPress: onButtonPress, ...buttonProps } = __button;
 

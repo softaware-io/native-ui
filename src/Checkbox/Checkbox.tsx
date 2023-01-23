@@ -4,7 +4,7 @@ import { Pressable, Text, TextStyle, View, ViewStyle } from "react-native";
 import Animated, { Easing, ZoomIn, ZoomOut } from "react-native-reanimated";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
-import { merge } from "../utils/merge";
+import { mergeProps } from "../utils/mergeProps";
 import { useTheme } from "../utils/useTheme";
 import { CheckboxProps } from "./types";
 
@@ -50,14 +50,14 @@ export const Checkbox: FC<CheckboxProps> = ({
     },
   };
 
-  const { _disabled, _pressed, _checked, ...remainingProps } = merge(
+  const { _disabled, _pressed, _checked, ...remainingProps } = mergeProps(
     defualtProps,
     components.Checkbox,
     props
   );
 
   const { label, __label, __icon, __thumb, onValueChange, ...mergedProps } =
-    merge(
+    mergeProps(
       remainingProps,
       isChecked ? _checked : undefined,
       isPressed ? _pressed : undefined,
