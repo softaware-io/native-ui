@@ -11,7 +11,7 @@ import {
 import Animated, { Easing, ZoomIn, ZoomOut } from "react-native-reanimated";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
-import { merge } from "../utils/merge";
+import { mergeProps } from "../utils/mergeProps";
 import { useTheme } from "../utils/useTheme";
 import { RadioOptionProps, RadioProps } from "./types";
 
@@ -23,7 +23,7 @@ export const Radio: FC<RadioProps> & { Option: typeof Option } = ({
 }) => {
   const { components } = useTheme();
 
-  const containerProps = merge(components.Radio, props);
+  const containerProps = mergeProps(components.Radio, props);
 
   const createRadioOptions = (
     options: ReactElement<RadioOptionProps> | ReactElement<RadioOptionProps>[]
@@ -83,13 +83,13 @@ const Option: FC<RadioOptionProps> = ({
     },
   };
 
-  const { _disabled, _pressed, _checked, ...remainingProps } = merge(
+  const { _disabled, _pressed, _checked, ...remainingProps } = mergeProps(
     defualtProps,
     components.Radio?.Option,
     props
   );
 
-  const { label, __label, __icon, __thumb, ...mergedProps } = merge(
+  const { label, __label, __icon, __thumb, ...mergedProps } = mergeProps(
     remainingProps,
     isChecked ? _checked : undefined,
     isPressed ? _pressed : undefined,

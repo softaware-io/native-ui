@@ -5,7 +5,7 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
-import { merge } from "../utils/merge";
+import { mergeProps } from "../utils/mergeProps";
 import { useTheme } from "../utils/useTheme";
 import { TextInputProps, TextInputStyle } from "./types";
 
@@ -28,13 +28,13 @@ export const TextInput: FC<TextInputProps> = ({
     },
   };
 
-  const { _disabled, _focused, _readOnly, ...remainingProps } = merge(
+  const { _disabled, _focused, _readOnly, ...remainingProps } = mergeProps(
     defualtProps,
     components.TextInput,
     props
   );
 
-  const mergedProps = merge(
+  const mergedProps = mergeProps(
     remainingProps,
     isFocused ? _focused : undefined,
     isReadOnly ? _readOnly : undefined,

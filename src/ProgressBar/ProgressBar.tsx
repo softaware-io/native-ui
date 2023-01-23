@@ -5,7 +5,7 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
-import { merge } from "../utils/merge";
+import { mergeProps } from "../utils/mergeProps";
 import { useTheme } from "../utils/useTheme";
 import { ProgressBarProps, ProgressBarStyle } from "./types";
 
@@ -24,13 +24,13 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     },
   };
 
-  const { _disabled, ...remainingProps } = merge(
+  const { _disabled, ...remainingProps } = mergeProps(
     defualtProps,
     components.ProgressBar,
     props
   );
 
-  const { style, ...mergedProps } = merge(
+  const { style, ...mergedProps } = mergeProps(
     remainingProps,
     isDisabled ? _disabled : undefined
   );

@@ -7,7 +7,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
-import { merge } from "../utils/merge";
+import { mergeProps } from "../utils/mergeProps";
 import { useTheme } from "../utils/useTheme";
 import { SwitchProps } from "./types";
 
@@ -47,18 +47,19 @@ export const Switch: FC<SwitchProps> = ({
     },
   };
 
-  const { _disabled, _pressed, _toggled, ...remainingProps } = merge(
+  const { _disabled, _pressed, _toggled, ...remainingProps } = mergeProps(
     defualtProps,
     components.Switch,
     props
   );
 
-  const { __track, __icon, __thumb, onValueChange, ...mergedProps } = merge(
-    remainingProps,
-    isToggled ? _toggled : undefined,
-    isPressed ? _pressed : undefined,
-    isDisabled ? _disabled : undefined
-  );
+  const { __track, __icon, __thumb, onValueChange, ...mergedProps } =
+    mergeProps(
+      remainingProps,
+      isToggled ? _toggled : undefined,
+      isPressed ? _pressed : undefined,
+      isDisabled ? _disabled : undefined
+    );
 
   const { onPressIn, onPressOut, onLayout, ...containerProps } = mergedProps;
 

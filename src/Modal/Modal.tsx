@@ -6,7 +6,7 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
-import { merge } from "../utils/merge";
+import { mergeProps } from "../utils/mergeProps";
 import { useTheme } from "../utils/useTheme";
 import {
   ModalActionsProps,
@@ -30,7 +30,7 @@ export const Modal: FC<ModalProps> & {
     style: defaultStyles.modal,
   };
 
-  const containerProps = merge(defualtProps, components.Modal, props);
+  const containerProps = mergeProps(defualtProps, components.Modal, props);
 
   return <RNModal {...containerProps}>{children}</RNModal>;
 };
@@ -43,7 +43,11 @@ const Header: FC<ModalHeaderProps> = ({ children, ...props }) => {
     style: defaultStyles.modalHeader,
   };
 
-  const containerProps = merge(defualtProps, components.Modal?.Header, props);
+  const containerProps = mergeProps(
+    defualtProps,
+    components.Modal?.Header,
+    props
+  );
 
   return <View {...containerProps}>{children}</View>;
 };
@@ -56,7 +60,11 @@ const Content: FC<ModalContentProps> = ({ children, ...props }) => {
     style: defaultStyles.modalContent,
   };
 
-  const containerProps = merge(defualtProps, components.Modal?.Content, props);
+  const containerProps = mergeProps(
+    defualtProps,
+    components.Modal?.Content,
+    props
+  );
 
   return <View {...containerProps}>{children}</View>;
 };
@@ -69,7 +77,11 @@ const Actions: FC<ModalActionsProps> = ({ children, ...props }) => {
     style: defaultStyles.modalActions,
   };
 
-  const containerProps = merge(defualtProps, components.Modal?.Actions, props);
+  const containerProps = mergeProps(
+    defualtProps,
+    components.Modal?.Actions,
+    props
+  );
 
   return <View {...containerProps}>{children}</View>;
 };
