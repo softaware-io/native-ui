@@ -1,5 +1,4 @@
 import { Picker } from "@react-native-picker/picker";
-import merge from "lodash.merge";
 import { FC, useRef, useState } from "react";
 import { Platform, Pressable, TextStyle, View, ViewStyle } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
@@ -7,6 +6,7 @@ import { Button } from "../Button/Button";
 import { Modal } from "../Modal/Modal";
 import { TextInput } from "../TextInput/TextInput";
 import { createStyles } from "../utils/createStyles";
+import { merge } from "../utils/merge";
 import { useTheme } from "../utils/useTheme";
 import { SelectProps } from "./types";
 

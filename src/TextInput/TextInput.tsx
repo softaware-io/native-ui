@@ -1,4 +1,3 @@
-import merge from "lodash.merge";
 import { FC, useState } from "react";
 import { TextInput as RNTextInput } from "react-native";
 import {
@@ -6,6 +5,7 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
+import { merge } from "../utils/merge";
 import { useTheme } from "../utils/useTheme";
 import { TextInputProps, TextInputStyle } from "./types";
 

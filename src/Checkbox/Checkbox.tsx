@@ -1,10 +1,10 @@
 import { Octicons } from "@expo/vector-icons";
-import merge from "lodash.merge";
 import { createElement, FC, useState } from "react";
 import { Pressable, Text, TextStyle, View, ViewStyle } from "react-native";
 import Animated, { Easing, ZoomIn, ZoomOut } from "react-native-reanimated";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
+import { merge } from "../utils/merge";
 import { useTheme } from "../utils/useTheme";
 import { CheckboxProps } from "./types";
 

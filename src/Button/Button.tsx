@@ -1,4 +1,3 @@
-import merge from "lodash.merge";
 import { createElement, FC, useState } from "react";
 import {
   ActivityIndicator,
@@ -14,6 +13,7 @@ import {
 import { createStyles } from "../utils/createStyles";
 import { useTheme } from "../utils/useTheme";
 import { ButtonProps } from "./types";
+import { merge } from "../utils/merge";
 
 export const Button: FC<ButtonProps> = ({
   isDisabled = false,
@@ -24,7 +24,7 @@ export const Button: FC<ButtonProps> = ({
   const defaultStyles = useStyles();
   const [isPressed, setIsPressed] = useState(false);
 
-  const defualtProps = {
+  const defaultProps = {
     style: defaultStyles.button,
     _pressed: {
       style: defaultStyles.pressedButton,
@@ -50,7 +50,7 @@ export const Button: FC<ButtonProps> = ({
   };
 
   const { _disabled, _pressed, _loading, ...remainingProps } = merge(
-    defualtProps,
+    defaultProps,
     components.Button,
     props
   );

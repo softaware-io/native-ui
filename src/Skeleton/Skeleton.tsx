@@ -1,4 +1,3 @@
-import merge from "lodash.merge";
 import { FC, useEffect } from "react";
 import Animated, {
   Easing,
@@ -7,6 +6,7 @@ import Animated, {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
+import { merge } from "../utils/merge";
 import { useTheme } from "../utils/useTheme";
 import { SkeletonProps, SkeletonStyle } from "./types";
 

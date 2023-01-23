@@ -1,4 +1,3 @@
-import merge from "lodash.merge";
 import { FC } from "react";
 import { Bar } from "react-native-progress";
 import {
@@ -6,6 +5,7 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
+import { merge } from "../utils/merge";
 import { useTheme } from "../utils/useTheme";
 import { ProgressBarProps, ProgressBarStyle } from "./types";
 
