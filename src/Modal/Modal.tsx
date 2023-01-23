@@ -1,4 +1,3 @@
-import merge from "lodash.merge";
 import { FC } from "react";
 import { View, ViewStyle } from "react-native";
 import RNModal from "react-native-modal";
@@ -7,6 +6,7 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
+import { merge } from "../utils/merge";
 import { useTheme } from "../utils/useTheme";
 import {
   ModalActionsProps,

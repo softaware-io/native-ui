@@ -1,5 +1,4 @@
 import { FontAwesome } from "@expo/vector-icons";
-import merge from "lodash.merge";
 import { createElement, FC, ReactElement, useState } from "react";
 import {
   GestureResponderEvent,
@@ -12,6 +11,7 @@ import {
 import Animated, { Easing, ZoomIn, ZoomOut } from "react-native-reanimated";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { createStyles } from "../utils/createStyles";
+import { merge } from "../utils/merge";
 import { useTheme } from "../utils/useTheme";
 import { RadioOptionProps, RadioProps } from "./types";
 
