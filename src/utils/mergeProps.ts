@@ -1,5 +1,5 @@
 import lodashMerge from "lodash.merge";
-import StyleSheet from "react-native-extended-stylesheet";
+import { StyleSheet } from "react-native";
 
 const isObject = (obj: any) =>
   typeof obj === "object" && !Array.isArray(obj) && obj !== null;
