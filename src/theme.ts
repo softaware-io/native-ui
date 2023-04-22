@@ -69,6 +69,7 @@ export type DefaultFontSizes = {
 } & { custom: (size: number, scale?: number) => number };
 
 export type DefaultFunctions = {
+  maxBorderRadius: () => number;
   [key: string]: (...args: any[]) => any;
 };
 
