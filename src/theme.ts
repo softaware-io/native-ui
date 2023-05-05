@@ -18,7 +18,7 @@ import { SkeletonProps } from "./Skeleton/types";
 import { SwitchProps } from "./Switch/types";
 import { TextInputProps } from "./TextInput/types";
 
-type ColorShades = {
+export type ColorShades = {
   50: string;
   100: string;
   200: string;
@@ -32,31 +32,32 @@ type ColorShades = {
 };
 
 export type DefaultColors = {
-  primary: ColorShades;
-  slate: ColorShades;
-  gray: ColorShades;
-  zinc: ColorShades;
-  neutral: ColorShades;
-  stone: ColorShades;
-  red: ColorShades;
-  orange: ColorShades;
-  amber: ColorShades;
-  yellow: ColorShades;
-  lime: ColorShades;
-  green: ColorShades;
-  emerald: ColorShades;
-  teal: ColorShades;
-  cyan: ColorShades;
-  sky: ColorShades;
-  blue: ColorShades;
-  indigo: ColorShades;
-  violet: ColorShades;
-  purple: ColorShades;
-  fuchsia: ColorShades;
-  pink: ColorShades;
-  rose: ColorShades;
-  [key: string]: ColorShades;
-} & { white: string; black: string };
+  primary: Partial<ColorShades> | string;
+  slate: Partial<ColorShades> | string;
+  gray: Partial<ColorShades> | string;
+  zinc: Partial<ColorShades> | string;
+  neutral: Partial<ColorShades> | string;
+  stone: Partial<ColorShades> | string;
+  red: Partial<ColorShades> | string;
+  orange: Partial<ColorShades> | string;
+  amber: Partial<ColorShades> | string;
+  yellow: Partial<ColorShades> | string;
+  lime: Partial<ColorShades> | string;
+  green: Partial<ColorShades> | string;
+  emerald: Partial<ColorShades> | string;
+  teal: Partial<ColorShades> | string;
+  cyan: Partial<ColorShades> | string;
+  sky: Partial<ColorShades> | string;
+  blue: Partial<ColorShades> | string;
+  indigo: Partial<ColorShades> | string;
+  violet: Partial<ColorShades> | string;
+  purple: Partial<ColorShades> | string;
+  fuchsia: Partial<ColorShades> | string;
+  pink: Partial<ColorShades> | string;
+  rose: Partial<ColorShades> | string;
+  white: string;
+  black: string;
+} & Record<string, Partial<ColorShades> | string>;
 
 export type DefaultFontSizes = {
   xs: number;
@@ -65,13 +66,12 @@ export type DefaultFontSizes = {
   md: number;
   lg: number;
   xl: number;
-  [key: string]: number;
-} & { custom: (size: number, scale?: number) => number };
+  custom: (size: number, scale?: number) => number;
+} & Record<string, number | ((size: number, scale?: number) => number)>;
 
 export type DefaultFunctions = {
   maxBorderRadius: () => number;
-  [key: string]: (...args: any[]) => any;
-};
+} & Record<string, (...args: any[]) => any>;
 
 export type ComponentOverrides = {
   Button?: Partial<Omit<ButtonProps, "isDisabled" | "isLoading">>;
@@ -100,7 +100,6 @@ export type ComponentOverrides = {
   >;
 };
 
-//@ts-ignore
 export const defaultColors: DefaultColors = {
   white: "#FFFFFF",
   black: "#000000",
@@ -387,7 +386,6 @@ const defaultScale = wp("100%") / 320;
 const normalize = (size: number, scale = defaultScale) =>
   Math.round(PixelRatio.roundToNearestPixel(size * scale));
 
-//@ts-ignore
 export const defaultFontSizes: DefaultFontSizes = {
   xs: normalize(10),
   sm: normalize(13),
