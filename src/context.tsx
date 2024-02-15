@@ -20,10 +20,8 @@ type NativeUiContextProps = {
 type NativeUiContextProviderProps = {
   theme?: {
     colors?: Record<string, Partial<ColorShades> | string>;
-    fontSizes?: Record<
-      string,
-      number | ((size: number, scale?: number) => number)
-    >;
+    defaultLength?: number;
+    fontSizes?: Record<string, number>;
     components?: (theme: {
       colors: DefaultColors;
       fontSizes: DefaultFontSizes;
@@ -36,7 +34,7 @@ type NativeUiContextProviderProps = {
 
 export const NativeUiContext = createContext<NativeUiContextProps>({
   colors: defaultColors,
-  fontSizes: defaultFontSizes,
+  fontSizes: defaultFontSizes(),
   components: {},
   fn: defaultFunctions,
 });
@@ -46,7 +44,10 @@ export const NativeUiContextProvider = ({
   children,
 }: NativeUiContextProviderProps) => {
   const colors = { ...defaultColors, ...theme.colors };
-  const fontSizes = { ...defaultFontSizes, ...theme.fontSizes };
+  const fontSizes = {
+    ...defaultFontSizes(theme.defaultLength),
+    ...theme.fontSizes,
+  };
   const fn = { ...defaultFunctions, ...theme.fn };
   const components = theme.components?.({ colors, fontSizes, fn }) || {};
 
