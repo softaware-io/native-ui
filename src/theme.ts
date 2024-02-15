@@ -66,8 +66,8 @@ export type DefaultFontSizes = {
   md: number;
   lg: number;
   xl: number;
-  custom: (size: number, scale?: number) => number;
-} & Record<string, number | ((size: number, scale?: number) => number)>;
+  custom: (size: number, customLength?: number) => number;
+};
 
 export type DefaultFunctions = {
   maxBorderRadius: () => number;
@@ -381,20 +381,21 @@ export const defaultColors: DefaultColors = {
   },
 };
 
-const defaultScale = wp("100%") / 320;
-
-const normalize = (size: number, scale = defaultScale) =>
-  Math.round(PixelRatio.roundToNearestPixel(size * scale));
-
-export const defaultFontSizes: DefaultFontSizes = {
-  xs: normalize(10),
-  sm: normalize(13),
-  normal: normalize(15),
-  md: normalize(17),
-  lg: normalize(20),
-  xl: normalize(26),
-  custom: (size: number, scale?: number) => normalize(size, scale),
+const normalize = (size: number, length: number) => {
+  const scale = Math.min(wp("100%"), hp("100%")) / length;
+  return Math.round(PixelRatio.roundToNearestPixel(size * scale));
 };
+
+export const defaultFontSizes = (length = 320) => ({
+  xs: normalize(10, length),
+  sm: normalize(13, length),
+  normal: normalize(15, length),
+  md: normalize(17, length),
+  lg: normalize(20, length),
+  xl: normalize(26, length),
+  custom: (size: number, customLength = length) =>
+    normalize(size, customLength),
+});
 
 export const defaultFunctions: DefaultFunctions = {
   maxBorderRadius: () => Math.round(wp("100%") + hp("100%")) / 2,
